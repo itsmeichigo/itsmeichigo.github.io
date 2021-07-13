@@ -21,6 +21,7 @@ Usually we have several teams working on different features, and we break down t
 In my previous gig, we had around 10 teams working on the same mono-repo project, so we maintained feature branches for each team. My take on this approach:
 
 🎉 Yay: Each team has a separate space to work on their features.
+
 🤦‍♀️ Nay: It can be a pain when merging a long-lived branch, considering potential conflicts in terms of code and features. For example: a team can merge some fix that affects another team and that somehow slips through the crack. When the second team merges their feature, they discover the issue but it may be so close to the deadline and everyone gets panic! 💣💥
 
 So it seems like there are more cons than pros to me.
@@ -38,7 +39,7 @@ Another solution is breaking down tasks and handling them in separate small PRs,
 In the end, if you have a number of pull requests depending on one another, you should have a chain like this:
 ![Dependend Pull Requests](PRs.png)
 
-In my case, I’m not sure if my PRs can get merged before code freeze, so I’m keeping the flag on only for local development (and off for both beta testing and production). You can consider keeping your flag off on local too if it can block other teammates when they need to run the old feature. Just make sure to include instructions to turn the flag on in the testing steps of your PR.
+In my case, I was not sure if my PRs could get merged before code freeze, so during the development phase I kept the flag on only for local development (and off for both beta testing and production). You can consider keeping your flag off on local too if it can block other teammates when they need to run the old feature. Just make sure to include instructions to turn the flag on in the testing steps of your PR.
 
 ## Final thoughts
 
