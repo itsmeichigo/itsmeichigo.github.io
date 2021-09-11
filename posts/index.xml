@@ -1,4 +1,93 @@
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Posts on Tea with ichigo 🍵</title><link>/posts/</link><description>Recent content in Posts on Tea with ichigo 🍵</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><copyright>Huong Do</copyright><lastBuildDate>Tue, 13 Jul 2021 17:02:02 +0700</lastBuildDate><atom:link href="/posts/index.xml" rel="self" type="application/rss+xml"/><item><title>Breaking down large pull requests</title><link>/posts/breaking-down-pull-requests/</link><pubDate>Tue, 13 Jul 2021 17:02:02 +0700</pubDate><guid>/posts/breaking-down-pull-requests/</guid><description>This post was originally posted in WooCommerce Mobile Project P2 page. I figure this can be useful for other fellow developers as well so this is my public version of the post.
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Posts on Tea with ichigo 🍵</title><link>/posts/</link><description>Recent content in Posts on Tea with ichigo 🍵</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><copyright>Huong Do</copyright><lastBuildDate>Sat, 11 Sep 2021 10:00:02 +0701</lastBuildDate><atom:link href="/posts/index.xml" rel="self" type="application/rss+xml"/><item><title>Working with observable objects in SwiftUI</title><link>/posts/swiftui-observable-objects/</link><pubDate>Sat, 11 Sep 2021 10:00:02 +0701</pubDate><guid>/posts/swiftui-observable-objects/</guid><description>Earlier this week I learned about @StateObject initializer when reviewing a pull request. The idea was to create a view model for a SwiftUI view using some injected parameter and keep the view model as a @StateObject so that the its state is persisted when the view is redrawn. The view creates the @StateObject like so:
+class ItemViewModel: ObservableObject { @Published var itemName: String init(item: Item) { self.itemName = item.name } } struct ItemView: View { @StateObject private var viewModel: ItemViewModel init(item: Item) { _viewModel = StateObject(wrappedValue: ItemViewModel(item: item)) } var body: some View { TextField(&amp;#34;Item Name&amp;#34;, text: viewModel.</description><content type="html"><![CDATA[<p>Earlier this week I learned about <code>@StateObject</code> <a href="https://developer.apple.com/documentation/swiftui/stateobject/init(wrappedvalue:)">initializer</a> when reviewing a pull request. The idea was to create a view model for a SwiftUI view using some injected parameter and keep the view model as a <code>@StateObject</code> so that the its state is persisted when the view is redrawn. The view creates the <code>@StateObject</code> like so:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-swift" data-lang="swift"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">ItemViewModel</span>: ObservableObject {
+    @Published <span style="color:#66d9ef">var</span> itemName: String
+    <span style="color:#66d9ef">init</span>(item: Item) {
+        <span style="color:#66d9ef">self</span>.itemName = item.name
+    }
+}
+
+<span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">ItemView</span>: View {
+    @StateObject <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">var</span> viewModel: ItemViewModel
+    <span style="color:#66d9ef">init</span>(item: Item) {
+        _viewModel = StateObject(wrappedValue: ItemViewModel(item: item))
+    }
+
+    <span style="color:#66d9ef">var</span> body: some View {
+        TextField(<span style="color:#e6db74">&#34;Item Name&#34;</span>, text: viewModel.<span style="color:#960050;background-color:#1e0010">$</span>itemName)
+    }
+}
+</code></pre></div><p>The problem with this initializer is that it&rsquo;s not meant to be used directly. As Apple documentation says it:</p>
+<blockquote>
+<p>You don’t call this initializer directly. Instead, declare a property with the <code>@StateObject</code> attribute in a <a href="https://developer.apple.com/documentation/swiftui/view"><code>View</code></a>, <a href="https://developer.apple.com/documentation/swiftui/app"><code>App</code></a>, or <a href="https://developer.apple.com/documentation/swiftui/scene"><code>Scene</code></a>, and provide an initial value</p>
+</blockquote>
+<p>More interestingly, <a href="https://swiftui-lab.com/random-lessons/#data-10">an answer</a> on the WWDC21&rsquo;s SwiftUI Lab confirms that this is an acceptable use. I&rsquo;m not quite happy with this answer though, because it&rsquo;s not cool to go against the recommended use. So we can fix this by injecting the view model from outside, right?</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-swift" data-lang="swift"><span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">ItemView</span>: View {
+    @StateObject <span style="color:#66d9ef">var</span> viewModel: ItemViewModel
+
+    <span style="color:#66d9ef">var</span> body: some View {
+        Text(<span style="color:#e6db74">&#34;Test: </span><span style="color:#e6db74">\(</span>viewModel.id<span style="color:#e6db74">)</span><span style="color:#e6db74">&#34;</span>)
+    }
+}
+
+<span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">ItemListView</span>: View {
+    @ObservedObject <span style="color:#66d9ef">var</span> viewModel: ItemListViewModel
+
+    <span style="color:#66d9ef">var</span> body: some View {
+        ForEach(viewModel.items) { item <span style="color:#66d9ef">in</span>
+            ItemView(viewModel: ItemViewModel(item: item))
+        }
+    }
+}
+</code></pre></div><p>But this doesn&rsquo;t seem right!</p>
+<p>I&rsquo;ve read several articles about the difference between <code>@StateObject</code> and <code>@ObservedObject</code>, and the general idea is simple: You should use <code>@StateObject</code> if the view you&rsquo;re using creates the instance of the <code>ObservableObject</code> itself. If it does not, use <code>@ObservedObject</code> instead.</p>
+<p>Consider <code>@StateObject</code> something similar to <code>@State</code> but to use with <code>ObservableObject</code>. They both are created and owned by the SwiftUI view. Their values are controlled internally and persisted by SwiftUI internally throughout re-renders of the view. <code>@ObservedObject</code>, however, is not persisted by SwiftUI.</p>
+<p>Back to our initial code problem. Using the injected <code>@StateObject</code> is incorrect, so we should go ahead and replace it with <code>@ObservedObject</code>. Normally we&rsquo;re done here, since we usually want fresh instances of items every time a list redraws itself.</p>
+<p>But what if we want to keep the text field value when rotating the device? When device orientation changes, the item list is redrawn, which creates new views for the child items with new instances of their view models. This will reset the content of a <code>ItemView</code>&rsquo;s text field to its initial value.</p>
+<p>The solution is to hold on the the item view models to persist the state of the item views:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-swift" data-lang="swift"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">ItemListViewModel</span>: ObservableObject {
+    <span style="color:#66d9ef">private</span>(<span style="color:#66d9ef">set</span>) <span style="color:#66d9ef">var</span> itemViewModels: [ItemViewModel]
+    @Published <span style="color:#66d9ef">var</span> items: [Item]
+    
+    <span style="color:#66d9ef">init</span>(items: Item) {
+        <span style="color:#66d9ef">self</span>.items = items
+        <span style="color:#66d9ef">self</span>.itemViewModel = items.map { ItemViewModel(item: $0) }
+    }
+}
+
+<span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">ItemListView</span>: View {
+    @ObservedObject <span style="color:#66d9ef">var</span> viewModel: ItemListViewModel
+
+    <span style="color:#66d9ef">var</span> body: some View {
+        ForEach(viewModel.items) { item <span style="color:#66d9ef">in</span>
+            viewModel.itemViewModels.first(<span style="color:#66d9ef">where</span>: { $0.item == item }).map { viewModel <span style="color:#66d9ef">in</span>
+                ItemView(viewModel: viewModel)
+            }
+        }
+    }
+}
+
+<span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">ItemView</span>: View {
+    @ObservedObject <span style="color:#66d9ef">var</span> viewModel: ItemViewModel
+
+    <span style="color:#66d9ef">var</span> body: some View {
+        Text(<span style="color:#e6db74">&#34;Test: </span><span style="color:#e6db74">\(</span>viewModel.id<span style="color:#e6db74">)</span><span style="color:#e6db74">&#34;</span>)
+    }
+}
+</code></pre></div><p>Since our <code>ItemListViewModel</code> now keeps references of all the items' view models, the text field of each item view is kept intact when the view is redrawn! 🎉</p>
+<p>So whenever you find yourself needing an <code>ObservableObject</code> in a SwiftUI view, ask yourself two questions:</p>
+<ul>
+<li>Do I need <strong>external (injected) data</strong> to create the object? If yes, go for <code>@ObservedObject</code>, otherwise <code>@StateObject</code>.</li>
+<li>I need to use an <code>@ObservedObject</code>, but do I need to <strong>persist its states</strong>? If yes, keep a reference of the object somewhere, otherwise, feel free to create a new instance for every view.</li>
+</ul>
+<p>I hope these tips are helpful for other folks working with SwiftUI in their projects!</p>
+<p>More readings if you&rsquo;re interested:</p>
+<ul>
+<li><a href="https://swiftuipropertywrappers.com/">SwiftUI Property Wrappers</a></li>
+<li><a href="https://www.donnywals.com/whats-the-difference-between-stateobject-and-observedobject/">What&rsquo;s the difference between @StateObject and @ObservedObject?</a></li>
+<li><a href="https://sarunw.com/posts/how-to-initialize-stateobject-with-parameters-in-swiftui/">How to initialize @StateObject with parameters in SwiftUI</a></li>
+</ul>
+]]></content></item><item><title>Breaking down large pull requests</title><link>/posts/breaking-down-pull-requests/</link><pubDate>Tue, 13 Jul 2021 17:02:02 +0700</pubDate><guid>/posts/breaking-down-pull-requests/</guid><description>This post was originally posted in WooCommerce Mobile Project P2 page. I figure this can be useful for other fellow developers as well so this is my public version of the post.
 Usually we have several teams working on different features, and we break down tasks into bite-size ones – so large PRs aren’t really a problem. However, for folks working alone on a backlog story, or joining the team for General Maintenance Rotation, and especially Trialmatticians – it’s common to face the issue of handling a big task and having to break them down into smaller parts.</description><content type="html"><![CDATA[<p><em>This post was originally posted in WooCommerce Mobile Project <a href="https://wordpress.com/p2/">P2</a> page. I figure this can be useful for other fellow developers as well so this is my public version of the post.</em></p>
 <p>Usually we have several teams working on different features, and we break down tasks into bite-size ones – so large PRs aren’t really a problem. However, for folks working alone on a backlog story, or joining the team for General Maintenance Rotation, and especially Trialmatticians – it’s common to face the issue of handling a big task and having to break them down into smaller parts. So what are the best practices for this situation?</p>
 <h2 id="feature-branch-yay-or-nay">Feature Branch: Yay or Nay?</h2>
@@ -35,7 +124,7 @@ Usually we have several teams working on different features, and we break down t
 <p>Combine declares publishers to expose values that can change over time, and subscribers to receive those values from the publishers.</p>
 </blockquote>
 <p>The great thing about using the native FRP framework is that it has been integrated into other Apple’s frameworks, making the migration process easier. Foundation framework has supported the use of Combine in some of its APIs, like <code>URLSession</code> in the following example:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-swift" data-lang="swift"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">RepoListViewModel</span> {
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-swift" data-lang="swift"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">RepoListViewModel</span> {
     <span style="color:#66d9ef">var</span> cancellable: AnyCancellable?
     
     <span style="color:#66d9ef">func</span> <span style="color:#a6e22e">fetchRepos</span>() {
@@ -55,7 +144,7 @@ Usually we have several teams working on different features, and we break down t
 }
 </code></pre></div><p>In this example, <code>URLSession</code> uses <code>Publisher</code> as a wrapper to emit signals to its subscribers on receipt of response from the URL request. <code>.sink</code> is a method to create a subscription by connecting a subscriber of type <code>Sink</code> to a publisher. This method accepts one closure for execution when receiving new elements and another for handling completion. This is similar to RxSwift Observable&rsquo;s <code>subscribe</code> method which lets us handle when a stream emits new event, completes or errors out.</p>
 <p>Subscriptions in Combine can also be handled by assigning values to class properties that are marked with <code>@Published</code> - which is quite similar to <code>bind(to:)</code> method in RxSwift Observable:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-swift" data-lang="swift"><span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">Repo</span>: Decodable {
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-swift" data-lang="swift"><span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">Repo</span>: Decodable {
     <span style="color:#66d9ef">let</span> name: String
     <span style="color:#66d9ef">let</span> description: String?
     <span style="color:#66d9ef">let</span> language: String?
@@ -75,7 +164,7 @@ Usually we have several teams working on different features, and we break down t
 }
 </code></pre></div><p>Note: In case you’re wondering, since parameter sent to this <code>assign</code> method is <code>inout</code>, an <code>&amp;</code> operator is required to precede <code>$repoDetail</code>. The <code>$</code> operator is used for accessing the wrapped property itself.</p>
 <p>The preceding example uses the property wrapper <code>@Published</code> to create a publisher that outputs values of type <code>Repo?</code> and has failure type <code>Never</code> (meaning the stream never fails - more on that later). The <code>repoDetail</code> therefore can be observed for changes by another subscriber:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-swift" data-lang="swift"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">RepoDetailViewController</span>: UIViewController {
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-swift" data-lang="swift"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">RepoDetailViewController</span>: UIViewController {
     <span style="color:#66d9ef">@IBOutlet</span> <span style="color:#66d9ef">var</span> titleLabel: UILabel!
     <span style="color:#66d9ef">var</span> viewModel: RepoDetailViewModel!
     <span style="color:#66d9ef">var</span> cancellable: AnyCancellable?
@@ -99,7 +188,7 @@ Usually we have several teams working on different features, and we break down t
 <h2 id="memory-management">Memory management</h2>
 <p>If you look closely at the code examples in the first section, you’ll notice the retaining of <code>AnyCancellable</code> after creating subscriptions. Methods <code>.sink</code> and <code>.assign(to:on:)</code> both return <code>AnyCancellable</code>, indicating that the subscriptions can be cancelled from outside. This retaining is important to keep the created data streams alive; and also to dispose them when they are no longer relevant - much like how <code>DisposeBag</code> is used in RxSwift.</p>
 <p>Usually you would want to create more than one subscriptions in a class, so it is more practical to have a set of <code>AnyCancellable</code> objects to keep all the subscriptions in one place:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-swift" data-lang="swift"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">RepoDetailViewController</span>: UIViewController {
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-swift" data-lang="swift"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">RepoDetailViewController</span>: UIViewController {
     <span style="color:#66d9ef">@IBOutlet</span> <span style="color:#66d9ef">var</span> titleLabel: UILabel!
     <span style="color:#66d9ef">@IBOutlet</span> <span style="color:#66d9ef">var</span> descriptionLabel: UILabel!
     <span style="color:#66d9ef">var</span> viewModel: RepoDetailViewModel!
@@ -131,7 +220,7 @@ Usually we have several teams working on different features, and we break down t
 <p>In RxSwift, Observable is a generic type with an associated type Element defining the type of the data stream’s output. In Combine, a Publisher has two concerns: Output and Failure types. Failure type of a publisher can be either an <code>Error</code>-conforming type, or <code>Never</code> if it does not publish any error. So when creating a subscription, you have to make sure that the Input type of the subscriber match with the Output type of the publisher. More interestingly, their Failure types are also required to be the same, otherwise you&rsquo;ll encounter a mismatching types error.</p>
 <p>Publisher extension has several operators to handle errors. In the <code>fetchRepoDetail()</code> example above I used <code>replaceError(with:)</code> to silent any decoding or response errors with <code>nil</code> since I wanted the failure type of the upstream publisher to match with that of the <code>@Published</code> property, which is <code>Never</code>. In cases when you are certain that no error should be thrown, <code>assertNoFailure()</code> can be used to transform failure type to <code>Never</code> or call assert otherwise. You can also use <code>retry()</code> to attempt recreating failed subscriptions to a specified number of times; or map the error to another publisher using <code>catch()</code>.</p>
 <p>In real life situations, however, error handling is more often necessary — here’s how the code can be refactored for that purpose:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-swift" data-lang="swift"><span style="color:#66d9ef">enum</span> <span style="color:#a6e22e">RepoError</span>: Error {
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-swift" data-lang="swift"><span style="color:#66d9ef">enum</span> <span style="color:#a6e22e">RepoError</span>: Error {
     <span style="color:#66d9ef">case</span> url(URLError)
     <span style="color:#66d9ef">case</span> decode
     <span style="color:#66d9ef">case</span> unknown
@@ -174,7 +263,7 @@ Usually we have several teams working on different features, and we break down t
 <li>finally, with <code>mapError</code> we end up with <code>Publishers.MapError&lt;Publishers.Decode&lt;Publishers.TryMap&lt;URLSession.DataTaskPublisher, Data&gt;, Repo?, JSONDecoder&gt;, E&gt;</code></li>
 </ul>
 <p>If we want to expose the publisher to external subscribers, we’ll need a more generic type - <code>AnyPublisher</code> - as the subscribers only concern about the output and failure types of the publisher they subscribe to. This is where type erasing comes to play, and Combine has a method for this: <code>eraseToAnyPublisher()</code>. Let&rsquo;s see how we can use this to improve the implementation in the previous section:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-swift" data-lang="swift"><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">fetchDetail</span>() -&gt; AnyPublisher&lt;Repo, RepoError&gt; {
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-swift" data-lang="swift"><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">fetchDetail</span>() -&gt; AnyPublisher&lt;Repo, RepoError&gt; {
     <span style="color:#66d9ef">let</span> url = URL(string: <span style="color:#e6db74">&#34;https://api.github.com/repos/itsmeichigo/Playgrounds&#34;</span>)<span style="color:#f92672">!</span>
     <span style="color:#66d9ef">return</span> URLSession.shared.dataTaskPublisher(<span style="color:#66d9ef">for</span>: url)
         .tryMap(<span style="color:#960050;background-color:#1e0010">\</span>.data)
@@ -195,7 +284,7 @@ Usually we have several teams working on different features, and we break down t
 <h2 id="future-anddeferred">Future and Deferred</h2>
 <p>In Combine, many publishers invoke their closures and emit values only after they get a subscription. For instance, a <code>DataTaskPublisher</code> starts a url request and emit subsequent result whenever it receives demand request from a subscriber. This also means that several subscriptions made to the same publisher can trigger multiple url requests and receive different response - which is not desirable if we just want to observe the same stream. Applying <code>share()</code> operator can solve that problem, making sure that the same output of the publisher is shared among its subscribers.</p>
 <p>An alternative would be to wrap the <code>URLSessionDataTask</code> creation in a <code>Future</code>. It&rsquo;s a type of publisher that completes after emitting a <strong>single</strong> output value or failure. This result is republished to any subscriber listens to the same <code>Future</code> object. It&rsquo;s suitable for wrapping any asynchronous work that expects only one result. Since a url requests always returns response once and then completes - this is a perfect case for the use of <code>Future</code>:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-swift" data-lang="swift"><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">fetchDetail</span>() -&gt; Future&lt;Repo, RepoError&gt; {
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-swift" data-lang="swift"><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">fetchDetail</span>() -&gt; Future&lt;Repo, RepoError&gt; {
     <span style="color:#66d9ef">let</span> url = URL(string: <span style="color:#e6db74">&#34;https://api.github.com/repos/itsmeichigo/Playgrounds&#34;</span>)<span style="color:#f92672">!</span>
     <span style="color:#66d9ef">return</span> Future { promise <span style="color:#66d9ef">in</span>
         URLSession.shared.dataTask(with: url) { (data, response, error) <span style="color:#66d9ef">in</span>
@@ -221,7 +310,7 @@ Usually we have several teams working on different features, and we break down t
 <li><code>Future</code> emits result only once so even though it&rsquo;s still possible to call <code>retry()</code> on it, the operator can&rsquo;t create new subscription after the publisher completes.</li>
 </ul>
 <p>A solution to delay the start of a <code>Future</code>&rsquo;s work while still taking advantage of its one-time result is to wrap it inside a <code>Deferred</code>. This is another special kind of publisher whose job is to wait for a subscription before triggering the supplied closure to create a new publisher. The implementation is simple:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-swift" data-lang="swift"><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">createDeferred</span>() -&gt; Deferred&lt;Future&lt;Repo, RepoError&gt;<span style="color:#f92672">&gt;</span> {
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-swift" data-lang="swift"><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">createDeferred</span>() -&gt; Deferred&lt;Future&lt;Repo, RepoError&gt;<span style="color:#f92672">&gt;</span> {
     Deferred {
         Future { promise <span style="color:#66d9ef">in</span>
             <span style="color:#75715e">// The rest of implementation</span>
