@@ -34,7 +34,7 @@ paginate     = 10
 
 [languages]
   [languages.en]
-    title = "Huong Do 🍓"
+    title = "🍓 Huong Do"
     subtitle = ""
     keywords = "swift, learning, tech, apps"
     copyright = 'Huong Do'
@@ -43,10 +43,6 @@ paginate     = 10
     [languages.en.params.logo]
       logoText = "cd home/"
       logoHomeLink = "/"
-    # or
-    #
-    # path = "/img/your-example-logo.svg"
-    # alt = "Your example logo alt text"
 
   [params.portrait]
     path     = "/img/avatar.png"
