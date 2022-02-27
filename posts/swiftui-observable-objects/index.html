@@ -6,12 +6,12 @@
 <meta name=author content>
 <meta name=description content="Earlier this week I learned about @StateObject initializer when reviewing a pull request. The idea was to create a view model for a SwiftUI view using some injected parameter and keep the view model as a @StateObject so that the its state is persisted when the view is redrawn. The view creates the @StateObject like so:
 class ItemViewModel: ObservableObject { @Published var itemName: String init(item: Item) { self.itemName = item.name } } struct ItemView: View { @StateObject private var viewModel: ItemViewModel init(item: Item) { _viewModel = StateObject(wrappedValue: ItemViewModel(item: item)) } var body: some View { TextField(&amp;#34;Item Name&amp;#34;, text: viewModel.">
-<meta name=keywords content="swift,learning,tech,swift,swiftui,observedobject,stateobject">
+<meta name=keywords content="swift,learning,tech,apps,swift,swiftui,observedobject,stateobject">
 <meta name=robots content="noodp">
 <meta name=theme-color content>
 <link rel=canonical href=/posts/swiftui-observable-objects/>
 <title>
-Working with observable objects in SwiftUI :: Tea with ichigo 🍵 — Huong Do's coding journal
+Working with observable objects in SwiftUI :: Huong Do 🍓
 </title>
 <link href=https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.5.0/css/flag-icon.min.css rel=stylesheet type=text/css>
 <link rel=stylesheet href=/main.1ba7d26d0c4324706d3a8a940ddf4a745defa78b99020c5643d5b32b6074a5ba.css>
@@ -32,7 +32,7 @@ class ItemViewModel: ObservableObject { @Published var itemName: String init(ite
 <meta property="og:type" content="article">
 <meta property="og:url" content="/posts/swiftui-observable-objects/"><meta property="og:image" content="/"><meta property="article:section" content="posts">
 <meta property="article:published_time" content="2021-09-11T10:00:02+07:01">
-<meta property="article:modified_time" content="2021-09-11T10:00:02+07:01"><meta property="og:site_name" content="Tea with ichigo 🍵">
+<meta property="article:modified_time" content="2021-09-11T10:00:02+07:01"><meta property="og:site_name" content="Huong Do 🍓">
 <meta property="article:published_time" content="2021-09-11 10:00:02 +0701 +0701">
 </head>
 <body class=dark-theme>
@@ -214,7 +214,7 @@ class ItemViewModel: ObservableObject { @Published var itemName: String init(ite
 <footer class=footer>
 <div class=footer__inner>
 <div class=footer__content>
-<span>&copy; 2021</span>
+<span>&copy; 2022</span>
 <span>Huong Do</span>
 <span><a href=/posts/index.xml target=_blank title=rss><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-rss"><path d="M4 11a9 9 0 019 9"/><path d="M4 4a16 16 0 0116 16"/><circle cx="5" cy="19" r="1"/></svg></a></span>
 </div>
