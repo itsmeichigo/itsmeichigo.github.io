@@ -51,7 +51,7 @@ paginate     = 10
   [params.portrait]
     path     = "/img/avatar.png"
     alt      = "Portrait"
-    maxWidth = "50px"
+    maxWidth = "218px"
 
   # And you can even create generic menu
   [[menu.main]]
