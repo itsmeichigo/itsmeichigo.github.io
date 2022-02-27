@@ -48,6 +48,11 @@ paginate     = 10
     # path = "/img/your-example-logo.svg"
     # alt = "Your example logo alt text"
 
+  [params.portrait]
+    path     = "/img/avatar.png"
+    alt      = "Portrait"
+    maxWidth = "50px"
+
   # And you can even create generic menu
   [[menu.main]]
     identifier = "about"
