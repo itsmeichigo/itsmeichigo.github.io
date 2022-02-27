@@ -1,5 +1,5 @@
 baseurl      = "/"
-title        = "Tea with ichigo 🍵"
+title        = "Huong Do"
 languageCode = "en-us"
 theme        = "hello-friend-ng"
 paginate     = 10
@@ -11,17 +11,17 @@ paginate     = 10
   dateformNumTime = "2006-01-02 15:04"
 
   # Subtitle for home
-  homeSubtitle = "everything is a learnable skill"
+  homeSubtitle = "Rebel without a cat 🐱 Makes apps 📱 🍎 💻"
 
   # Set disableReadOtherPosts to true in order to hide the links to other posts.
   disableReadOtherPosts = false
 
-  # Enable sharing buttons, if you linke
+  # Enable sharing buttons, if you like
   enableSharingButtons = true
 
   # Metadata mostly used in document's head
-  description = "Huong Do's coding journal"
-  keywords = "itsmeichigo, blog"
+  description = "Huong Do's space"
+  keywords = "itsmeichigo, blog, apps"
   images = [""]
 
   # Default theme "light" or "dark"
@@ -34,9 +34,9 @@ paginate     = 10
 
 [languages]
   [languages.en]
-    title = "Tea with ichigo 🍵"
-    subtitle = "Huong Do's coding journal"
-    keywords = "swift, learning, tech"
+    title = "Huong Do 🍓"
+    subtitle = "Huong Do's space"
+    keywords = "swift, learning, tech, apps"
     copyright = 'Huong Do'
     readOtherPosts = "Read other posts"
 
