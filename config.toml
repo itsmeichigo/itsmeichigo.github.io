@@ -35,7 +35,7 @@ paginate     = 10
 [languages]
   [languages.en]
     title = "Huong Do 🍓"
-    subtitle = "Huong Do's space"
+    subtitle = ""
     keywords = "swift, learning, tech, apps"
     copyright = 'Huong Do'
     readOtherPosts = "Read other posts"
