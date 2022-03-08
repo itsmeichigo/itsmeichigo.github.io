@@ -34,7 +34,7 @@ paginate     = 10
 
 [languages]
   [languages.en]
-    title = "🍓 Huong Do"
+    title = "Huong Do"
     subtitle = ""
     keywords = "swift, learning, tech, apps"
     copyright = 'Huong Do'
@@ -50,6 +50,11 @@ paginate     = 10
     maxWidth = "218px"
 
   # And you can even create generic menu
+  [[menu.main]]
+    identifier = "peachy"
+    name       = "peachy"
+    url        = "/peachy"
+
   [[menu.main]]
     identifier = "about"
     name       = "about"
