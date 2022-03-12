@@ -6,6 +6,7 @@ images:
   - search-window.png
   - demo.gif
   - browser.png
+  - pref.png
 ---
 
 ![App Icon](peachy.svg)
@@ -27,5 +28,9 @@ Browse through more than 1000 kaomojis and find the ones you need
 
 ![Browser](browser.png)
 
+# Customizable
+Make your experiences even better by customizing the app to your needs
+
+![Preferences](pref.png)
 
 # Stay Tuned!
