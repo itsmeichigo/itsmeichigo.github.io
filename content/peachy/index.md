@@ -4,6 +4,8 @@ layout: app
 images: 
   - peachy.svg
   - search-window.png
+  - demo.gif
+  - browser.png
 ---
 
 ![App Icon](peachy.svg)
@@ -15,3 +17,15 @@ Quickly search and enter kaomojis to any Mac apps.
 
 ![Search Window](search-window.png)
 
+# Easy Access
+Open **Peachy** from any app by entering your trigger key following a keyword
+
+![Demo](demo.gif)
+
+# Need Inspirations?
+Browse through more than 1000 kaomojis and find the ones you need
+
+![Browser](browser.png)
+
+
+# Stay Tuned!
