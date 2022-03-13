@@ -50,10 +50,6 @@ paginate     = 10
     maxWidth = "218px"
 
   # And you can even create generic menu
-  [[menu.main]]
-    identifier = "peachy"
-    name       = "peachy"
-    url        = "/peachy"
 
   [[menu.main]]
     identifier = "about"
