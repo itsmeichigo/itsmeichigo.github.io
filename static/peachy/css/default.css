@@ -7580,9 +7580,8 @@ body {
 }
 
 .bg-hero {
-  background: #1D2B64;  /* fallback for old browsers */
-  background: -webkit-linear-gradient(to top, #F8CDDA, #1D2B64);  /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(to top, #F8CDDA, #1D2B64); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  background-color: #4158D0;
+  background-image: linear-gradient(154deg, #4158D0 0%, #C850C0 46%, #FFCC70 100%);
   background-attachment: fixed;
   background-size: cover;
   position: relative; }
@@ -7598,6 +7597,14 @@ body {
   .bg-hero .container {
     z-index: 2;
     position: relative; }
+
+.bg-feature {
+  background-color: #1E2025;
+  background-image: linear-gradient(to top, #3b41c5 0%, #a981bb 49%, #ffc8a9 100%); }
+
+.bg-opensource {
+  background-color: #1E2025;
+  background-image: linear-gradient(to top, #5f72bd 0%, #9b23ea 100%); }
 
 /*features boxes*/
 .feature-boxes {
