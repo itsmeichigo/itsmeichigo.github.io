@@ -7646,7 +7646,7 @@ body {
 
 /**slick slider */
 .slick-dots {
-  top: -4rem; }
+  bottom: 4rem; }
   .slick-dots li button::before {
     font-size: .75rem !important;
     line-height: 3.5rem !important; }
