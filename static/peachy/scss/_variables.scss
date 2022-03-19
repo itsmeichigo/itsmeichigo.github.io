@@ -10,23 +10,23 @@
 // Base Colors
 
 $white: #ffffff;
-$gray-100: #f8f9fa;
-$gray-200: #e9ecef;
-$gray-300: #dee2e6;
-$gray-400: #ced4da;
-$gray-500: #adb5bd;
-$gray-600: #868e96;
-$gray-700: #495057;
-$gray-800: #343a40;
-$gray-900: #212529;
+$gray-100: #ECEFF1;
+$gray-200: #CFD8DC;
+$gray-300: #B0BEC5;
+$gray-400: #90A4AE;
+$gray-500: #78909C;
+$gray-600: #607D8B;
+$gray-700: #546E7A;
+$gray-800: #455A64;
+$gray-900: #263238;
 $black: #000000;
-$blue: #0000ff;
+$blue: #2979ff;
 $indigo: #3d5afe;
-$purple: #aa00ff;
+$purple: #d500f9;
 $pink: #f50057;
 $red: #ff1744;
 $orange: #ff9100;
-$yellow: #ffff00;
+$yellow: #ffea00;
 $green: #00e676;
 $teal: #1de9b6;
 $cyan: #00e5ff;
@@ -34,14 +34,14 @@ $cyan: #00e5ff;
 
 // Theme Colors
 
-$primary: $green;
-$secondary: $yellow;
+$primary: $teal;
+$secondary: $white;
 $success: $green;
-$info: $purple;
-$warning: $orange;
+$info: $cyan;
+$warning: $yellow;
 $danger: $red;
 $light: $gray-100;
-$dark: $gray-900;
+$dark: darken($gray-900, 10%);
 
 
 $theme-colors: ();
@@ -57,7 +57,7 @@ $theme-colors: map-merge((
 ), $theme-colors);
 $theme-color-interval: 8%;
 $yiq-contrasted-threshold: 150;
-$yiq-text-dark: $gray-900;
+$yiq-text-dark: darken($gray-900, 10%);
 $yiq-text-light: $white;
 
 
@@ -88,17 +88,17 @@ $sizes: (25: 25%, 50: 50%, 75: 75%, 100: 100%);
 //Body
 //
 
-$body-bg: $white;
-$body-color: $gray-800;
+$body-bg: $black;
+$body-color: $gray-200;
 
 
 //
 //Links
 //
 
-$link-color: $gray-800;
+$link-color: $primary;
 $link-decoration: none;
-$link-hover-color: $black;
+$link-hover-color: darken($primary, 20%);
 $link-hover-decoration: none;
 
 
@@ -138,10 +138,13 @@ $grid-gutter-width: 30px;
 $line-height-lg: 1.5;
 $line-height-sm: 1.5;
 $border-width: 2px;
-$border-color: $gray-100;
-$border-radius: .25rem;
-$border-radius-lg: .3rem;
-$border-radius-sm: .2rem;
+$border-color: $gray-200;
+$border-radius: .3rem;
+$border-radius-lg: .4rem;
+$border-radius-sm: .25rem;
+$box-shadow-sm: 0 .125rem .25rem rgba($black, .075);
+$box-shadow: 0 .5rem 1rem rgba($black, .15);
+$box-shadow-lg: 0 1rem 3rem rgba($black, .175);
 $component-active-color: $white;
 $component-active-bg: theme-color("primary");
 $caret-width: .3em;
@@ -154,7 +157,7 @@ $transition-collapse: height .35s ease;
 //Fonts
 //
 
-$font-family-sans-serif: Arimo, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+$font-family-sans-serif: "Inter UI", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
 $font-family-monospace: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
 $font-family-base: $font-family-sans-serif;
 $font-size-base: 1rem;
@@ -165,33 +168,33 @@ $font-weight-normal: 400;
 $font-weight-bold: 700;
 $font-weight-base: $font-weight-normal;
 $line-height-base: 1.5;
-$h1-font-size: $font-size-base * 2.5;
-$h2-font-size: $font-size-base * 1.75;
+$h1-font-size: $font-size-base * 3;
+$h2-font-size: $font-size-base * 2.5;
 $h3-font-size: $font-size-base * 1.5;
 $h4-font-size: $font-size-base * 1.375;
 $h5-font-size: $font-size-base * 1.25;
 $h6-font-size: $font-size-base;
-$headings-margin-bottom: ($spacer / 2);
+$headings-margin-bottom: $spacer;
 $headings-font-family: inherit;
 $headings-font-weight: $font-weight-bold;
 $headings-line-height: 1.5;
-$headings-color: $black;
-$display1-size: 6rem;
-$display2-size: 5.5rem;
-$display3-size: 4.5rem;
-$display4-size: 3.5rem;
+$headings-color: $white;
+$display1-size: 5rem;
+$display2-size: 4.5rem;
+$display3-size: 3.5rem;
+$display4-size: 2.5rem;
 $display1-weight: 300;
 $display2-weight: 300;
 $display3-weight: 300;
 $display4-weight: 300;
 $display-line-height: $headings-line-height;
 $lead-font-size: ($font-size-base * 1.2);
-$lead-font-weight: 400;
+$lead-font-weight: 500;
 $small-font-size: 80%;
-$text-muted: $gray-600;
-$blockquote-small-color: $gray-600;
+$text-muted: $gray-500;
+$blockquote-small-color: $gray-500;
 $blockquote-font-size: ($font-size-base * 1.25);
-$hr-border-color: rgba($black, .1);
+$hr-border-color: $gray-800;
 $hr-border-width: $border-width;
 $mark-padding: .2em;
 $dt-font-weight: $font-weight-bold;
@@ -221,13 +224,15 @@ $table-dark-accent-bg: rgba($white, .05);
 $table-dark-hover-bg: rgba($white, .075);
 $table-dark-border-color: lighten($gray-900, 7.5%);
 $table-dark-color: $body-bg;
+$table-striped-order: odd;
+$table-caption-color: $text-muted;
 
 
 //
 //Buttons
 //
 
-$input-btn-padding-y: .5rem;
+$input-btn-padding-y: .55rem;
 $input-btn-padding-x: 1.5rem;
 $input-btn-line-height: $line-height-base;
 $input-btn-focus-width: .2rem;
@@ -250,7 +255,7 @@ $btn-padding-y-lg: $input-btn-padding-y-lg;
 $btn-padding-x-lg: $input-btn-padding-x-lg;
 $btn-line-height-lg: $input-btn-line-height-lg;
 $btn-border-width: $input-btn-border-width;
-$btn-font-weight: $font-weight-bold;
+$btn-font-weight: 500;
 $btn-box-shadow: 0 2px 8px rgba($black, 0.1);
 $btn-focus-width: $input-btn-focus-width;
 $btn-focus-box-shadow: $input-btn-focus-box-shadow;
@@ -268,7 +273,8 @@ $btn-transition: all 0.2s;
 //Forms
 //
 
-$input-padding-y: $input-btn-padding-y * 1.5;
+$label-margin-bottom: .5rem;
+$input-padding-y: $input-btn-padding-y;
 $input-padding-x: $input-btn-padding-x;
 $input-line-height: $input-btn-line-height;
 $input-padding-y-sm: $input-btn-padding-y-sm;
@@ -280,18 +286,19 @@ $input-line-height-lg: $input-btn-line-height-lg;
 $input-bg: $white;
 $input-disabled-bg: $gray-100;
 $input-color: $gray-700;
-$input-border-color: $gray-100;
-$input-border-width: 2px;
+$input-border-color: $border-color;
+$input-border-width: $border-width;
 $input-box-shadow: none;
 $input-border-radius: $border-radius;
 $input-border-radius-lg: $border-radius-lg;
 $input-border-radius-sm: $border-radius-sm;
 $input-focus-bg: $input-bg;
-$input-focus-border-color: $gray-300;
+$input-focus-border-color: $primary;
 $input-focus-color: $input-color;
 $input-focus-width: $input-btn-focus-width;
 $input-focus-box-shadow: $input-btn-focus-box-shadow;
 $input-placeholder-color: $gray-500;
+$input-plaintext-color: $body-color;
 $input-height-border: $input-btn-border-width * 2;
 $input-height-inner: ($font-size-base * $input-btn-line-height) + ($input-btn-padding-y * 2);
 $input-height: calc(#{$input-height-inner} + #{$input-height-border});
@@ -365,6 +372,20 @@ $custom-select-font-size-sm: 75%;
 $custom-select-height-sm: $input-height-sm;
 $custom-select-font-size-lg: 125%;
 $custom-select-height-lg: $input-height-lg;
+$custom-range-track-width: 100%;
+$custom-range-track-height: .5rem;
+$custom-range-track-cursor: pointer;
+$custom-range-track-bg: $gray-300;
+$custom-range-track-border-radius: 1rem;
+$custom-range-track-box-shadow: inset 0 .25rem .25rem rgba($black, .1);
+$custom-range-thumb-width: 1rem;
+$custom-range-thumb-height: $custom-range-thumb-width;
+$custom-range-thumb-bg: $component-active-bg;
+$custom-range-thumb-border: 0;
+$custom-range-thumb-border-radius: 1rem;
+$custom-range-thumb-box-shadow: 0 .1rem .25rem rgba($black, .1);
+$custom-range-thumb-focus-box-shadow: 0 0 0 1px $body-bg, $input-btn-focus-box-shadow;
+$custom-range-thumb-active-bg: lighten($component-active-bg, 35%);
 $custom-file-height: $input-height;
 $custom-file-focus-border-color: $input-focus-border-color;
 $custom-file-focus-box-shadow: $input-btn-focus-box-shadow;
@@ -436,13 +457,15 @@ $nav-tabs-link-active-border-color: $gray-200 $gray-200 $nav-tabs-link-active-bg
 $nav-pills-border-radius: $border-radius;
 $nav-pills-link-active-color: $component-active-color;
 $nav-pills-link-active-bg: $component-active-bg;
+$nav-divider-color: $gray-200;
+$nav-divider-margin-y: ($spacer / 2);
 
 
 //
 //Navbar
 //
 
-$navbar-padding-y: 1.25rem;
+$navbar-padding-y: 1.5rem;
 $navbar-padding-x: 1.25rem;
 $navbar-nav-link-padding-x: .75rem;
 $navbar-brand-font-size: $font-size-lg;
@@ -453,15 +476,15 @@ $navbar-toggler-padding-y: .25rem;
 $navbar-toggler-padding-x: .75rem;
 $navbar-toggler-font-size: $font-size-lg;
 $navbar-toggler-border-radius: $btn-border-radius;
-$navbar-dark-color: rgba($white,.9);
+$navbar-dark-color: rgba($white,.7);
 $navbar-dark-hover-color: rgba($white,.9);
 $navbar-dark-active-color: $white;
 $navbar-dark-disabled-color: rgba($white,.3);
 $navbar-dark-toggler-icon-bg: str-replace(url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='#{$navbar-dark-color}' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E"), "#", "%23");
 $navbar-dark-toggler-border-color: rgba($white,.1);
 $navbar-light-color: rgba($black,.7);
-$navbar-light-hover-color: rgba($black,.9);
-$navbar-light-active-color: rgba($black,1);
+$navbar-light-hover-color: rgba($primary,.9);
+$navbar-light-active-color: $primary;
 $navbar-light-disabled-color: rgba($black,.3);
 $navbar-light-toggler-icon-bg: str-replace(url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='#{$navbar-light-color}' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E"), "#", "%23");
 $navbar-light-toggler-border-color: rgba($black,.1);
@@ -483,6 +506,7 @@ $pagination-bg: $dark;
 $pagination-border-width: 0px;
 $pagination-border-color: transparent;
 $pagination-focus-box-shadow: $input-btn-focus-box-shadow;
+$pagination-focus-outline: 0;
 $pagination-hover-color: $gray-100;
 $pagination-hover-bg: $gray-600;
 $pagination-hover-border-color: $gray-700;
@@ -513,7 +537,7 @@ $card-border-radius: $border-radius;
 $card-border-color: rgba($black,.125);
 $card-inner-border-radius: calc(#{$card-border-radius} - #{$card-border-width});
 $card-cap-bg: rgba($black,.03);
-$card-bg: $white;
+$card-bg: $gray-900;
 $card-img-overlay-padding: 1.25rem;
 $card-group-margin: ($grid-gutter-width / 2);
 $card-deck-margin: $card-group-margin;
@@ -588,6 +612,7 @@ $modal-title-line-height: $line-height-base;
 $modal-content-bg: $white;
 $modal-content-border-color: $modal-content-bg;
 $modal-content-border-width: $border-width;
+$modal-content-border-radius: $border-radius-lg;
 $modal-content-box-shadow-xs: 0 .25rem .5rem rgba($black, .5);
 $modal-content-box-shadow-sm-up: 0 .5rem 1rem rgba($black, .5);
 $modal-backdrop-bg: $black;
@@ -687,6 +712,7 @@ $breadcrumb-bg: $gray-100;
 $breadcrumb-divider-color: $gray-400;
 $breadcrumb-active-color: $gray-400;
 $breadcrumb-divider: "/";
+$breadcrumb-border-radius: $border-radius;
 
 
 //
