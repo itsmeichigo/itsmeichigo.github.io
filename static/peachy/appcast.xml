@@ -1,0 +1,14 @@
+<?xml version="1.0" standalone="yes"?>
+<rss xmlns:sparkle="http://www.andymatuschak.org/xml-namespaces/sparkle" version="2.0">
+    <channel>
+        <title>Peachy</title>
+        <item>
+            <title>0.9.1</title>
+            <pubDate>Sun, 20 Mar 2022 21:31:05 +0700</pubDate>
+            <sparkle:version>2</sparkle:version>
+            <sparkle:shortVersionString>0.9.1</sparkle:shortVersionString>
+            <sparkle:minimumSystemVersion>11.0</sparkle:minimumSystemVersion>
+            <enclosure url="https://itsmeichigo.io/peachy/Peachy_v0.9.1.dmg" length="4106637" type="application/octet-stream" sparkle:edSignature="jSxOgG1I8GqsZ+Gbq0y6cq0LXSvybrCx4SIEo8Zz/zDNZdjLhvDhUIpBcx9uHcOI/o29n7ntzTugwIONOW1PDg=="/>
+        </item>
+    </channel>
+</rss>
