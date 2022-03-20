@@ -167,6 +167,13 @@ a:not([href]):not([tabindex]) {
   a:not([href]):not([tabindex]):focus {
     outline: 0; }
 
+.a-highlighted {
+  color: #1E2025;
+  text-decoration: underline; }
+.a-highlighted:hover {
+  color: #1E2025;
+  text-decoration: none; }
+
 pre,
 code,
 kbd,
