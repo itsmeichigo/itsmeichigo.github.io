@@ -52,6 +52,11 @@ paginate     = 10
   # And you can even create generic menu
 
   [[menu.main]]
+    identifier = "peachy"
+    name       = "🍑"
+    url        = "/peachy"
+
+  [[menu.main]]
     identifier = "about"
     name       = "about"
     url        = "/about"
