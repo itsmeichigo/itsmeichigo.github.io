@@ -97,7 +97,7 @@ One thing to note though – `AsyncAlgorithms` is still a work in progress, so n
 
 As you can see from my very brief experiments, it is possible to validate forms reactively without Combine if you really need to. I’ll leave you all to judge whether it is worth it – but I’ll subtly insert my opinion here that using Combine is a more straightforward solution when working with SwiftUI. My opinion can however go obsolete if Apple decides to add async/await support for state observation in SwiftUI in the next WWDC 😁.
 
-Async Algorithms, however, is a really promising library if we wish to work with AsyncSequence within the context of Swift concurrency. In other words, we should consider integrating it when migrating away from closure or Combine-based work for, say, networking tasks. As said earlier, the library is still beta, so we’ll need to wait until it’s mature enough, unless we want to be adventurous.
+Async Algorithms, however, is a really promising library if we wish to work with reactive pardigm within the context of Swift concurrency. In other words, we should consider integrating it when migrating away from Combine while keeping the reactive logic in your code. As said earlier, the library is still in beta, so we’ll need to wait until it’s mature enough, unless we want to be adventurous.
 
 ## Thoughts?
 
