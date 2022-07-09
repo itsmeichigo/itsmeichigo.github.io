@@ -1,4 +1,196 @@
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Posts on Huong Do</title><link>/posts/</link><description>Recent content in Posts on Huong Do</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><copyright>Huong Do</copyright><lastBuildDate>Tue, 14 Jun 2022 10:00:02 +0701</lastBuildDate><atom:link href="/posts/index.xml" rel="self" type="application/rss+xml"/><item><title>Async Sequence instead of Combine?</title><link>/posts/async-sequence-combine/</link><pubDate>Tue, 14 Jun 2022 10:00:02 +0701</pubDate><guid>/posts/async-sequence-combine/</guid><description>Ever since WWDC 2021, I’ve seen folks getting excited about the introduction of Swift concurrency, a.k.a async/await. It’s very common to come across comments that async/await will soon replace Combine, due to its potential and friendliness.
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Posts on Huong Do</title><link>/posts/</link><description>Recent content in Posts on Huong Do</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><copyright>Huong Do</copyright><lastBuildDate>Mon, 04 Jul 2022 12:23:02 +0700</lastBuildDate><atom:link href="/posts/index.xml" rel="self" type="application/rss+xml"/><item><title>An Adventure with Swift Charts</title><link>/posts/swift-charts/</link><pubDate>Mon, 04 Jul 2022 12:23:02 +0700</pubDate><guid>/posts/swift-charts/</guid><description>This post was original posted on mobile.blog.
+As you all may already know, one of the cool new things introduced in WWDC 2022 was Swift Charts, a framework to create charts with SwiftUI. To learn more about the Swift Charts&amp;rsquo; potential, let&amp;rsquo;s go on a thrilling adventure to replace the chart in WooCommerce iOS with this ✨✨ shiny new framework ✨✨.
+To get started, here&amp;rsquo;s what the chart currently looks like in WooCommerce iOS.</description><content type="html"><![CDATA[<p><em>This post was original posted on <a href="https://mobile.blog/2022/07/04/an-adventure-with-swift-charts/">mobile.blog</a>.</em></p>
+<p>As you all may already know, one of the cool new things introduced in WWDC 2022 was <a href="https://developer.apple.com/documentation/Charts">Swift Charts</a>, a framework to create charts with SwiftUI. To learn more about the Swift Charts&rsquo; potential, let&rsquo;s go on a thrilling adventure to replace the chart in <a href="https://apps.apple.com/us/app/woocommerce/id1389130815">WooCommerce iOS</a> with this ✨✨ shiny new framework ✨✨.</p>
+<p>To get started, here&rsquo;s what the chart currently looks like in WooCommerce iOS. We&rsquo;d want to build something similar using Swift Charts:</p>
+<p><img src="current-state.jpeg" alt="Current state"></p>
+<h2 id="preparations">Preparations</h2>
+<p>The plan is to keep the placeholder in the current view controller where we can add a hosting controller for the new chart (written in SwiftUI) there. We need a new simple <code>struct</code> to encapsulate the basic data needed for the chart. The <code>struct</code> needs to conform to <code>Identifiable</code> just so we can iterate through a collection of this type in SwiftUI.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Swift" data-lang="Swift"><span style="display:flex;"><span><span style="color:#75715e">/// A struct for data to be displayed on a Swift chart.</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">///</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">StoreStatsChartData</span>: Identifiable {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">var</span> id: String { UUID().uuidString }
+</span></span><span style="display:flex;"><span> 
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> date: Date
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> revenue: Double
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h2 id="basic-chart">Basic chart</h2>
+<p>It&rsquo;s time to start the actual work! First, let&rsquo;s create a new SwiftUI view that contains only a single <code>Chart</code>. It needs a list of chart data as created above to create a line chart out of it.</p>
+<p>In Swift Charts, the contents displaying data are called marks. Different chart types need different marks, for example for a line chart we need <a href="https://developer.apple.com/documentation/charts/linemark">LineMark</a>, and there are others like <a href="https://developer.apple.com/documentation/charts/areamark">AreaMark</a>, <a href="https://developer.apple.com/documentation/charts/pointmark">PointMark</a>, <a href="https://developer.apple.com/documentation/charts/rectanglemark">RectangleMark</a>, <a href="https://developer.apple.com/documentation/charts/rulemark">RuleMark</a> and <a href="https://developer.apple.com/documentation/charts/barmark">BarMark</a>. Since the chart in WooCommerce iOS has both a line and some gradient beneath it, we can use a combination of a <code>LineMark</code> and <code>AreaMark</code>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Swift" data-lang="Swift"><span style="display:flex;"><span><span style="color:#75715e">/// Chart for store stats build with Swift Charts.</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">///</span>
+</span></span><span style="display:flex;"><span>@available(iOS <span style="color:#ae81ff">16</span>, <span style="color:#f92672">*</span>)
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">StoreStatsChart</span>: View {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> intervals: [StoreStatsChartData]
+</span></span><span style="display:flex;"><span> 
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">var</span> body: some View {
+</span></span><span style="display:flex;"><span>        Chart(intervals) { item <span style="color:#66d9ef">in</span>
+</span></span><span style="display:flex;"><span>            LineMark(x: .value(<span style="color:#e6db74">&#34;Date&#34;</span>, item.date),
+</span></span><span style="display:flex;"><span>                     y: .value(<span style="color:#e6db74">&#34;Revenue&#34;</span>, item.revenue))
+</span></span><span style="display:flex;"><span>            .foregroundStyle(Color(Constants.chartLineColor))
+</span></span><span style="display:flex;"><span> 
+</span></span><span style="display:flex;"><span>            AreaMark(x: .value(<span style="color:#e6db74">&#34;Date&#34;</span>, item.date),
+</span></span><span style="display:flex;"><span>                     y: .value(<span style="color:#e6db74">&#34;Revenue&#34;</span>, item.revenue))
+</span></span><span style="display:flex;"><span>            .foregroundStyle(.linearGradient(colors: [Color(Constants.chartGradientTopColor), Color(Constants.chartGradientBottomColor)],
+</span></span><span style="display:flex;"><span>                                             startPoint: .top,
+</span></span><span style="display:flex;"><span>                                             endPoint: .bottom))
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>The result looks good with such minimal configuration:</p>
+<p><img src="basic-chart.png" alt="Basic Chart"></p>
+<h2 id="customizations">Customizations</h2>
+<p>The new chart displays correct data but doesn&rsquo;t look quite close to what we want to build. Fortunately, it&rsquo;s not complicated to customize charts with Swift Charts. The hardest part for me was navigating through the framework API when the majority of the documentation is missing! Good thing the <a href="https://developer.apple.com/videos/play/wwdc2022/10137">WWDC video</a> got me through most of it.</p>
+<h3 id="annotations">Annotations</h3>
+<p>Now let&rsquo;s display a text over the chart that says &ldquo;No revenue this period&rdquo; when there&rsquo;s no data to show. The text should display on top and at the center of a horizontal line for revenue zero. This can be handled by adding a <code>RuleMark</code> for the horizontal line at position zero for y, and then adding a <code>Text</code> as annotation for the mark:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Swift" data-lang="Swift"><span style="display:flex;"><span><span style="color:#66d9ef">if</span> <span style="color:#f92672">!</span>hasRevenue {
+</span></span><span style="display:flex;"><span>    RuleMark(y: .value(<span style="color:#e6db74">&#34;Zero revenue&#34;</span>, <span style="color:#ae81ff">0</span>))
+</span></span><span style="display:flex;"><span>        .annotation(position: .overlay, alignment: .center) {
+</span></span><span style="display:flex;"><span>            Text(<span style="color:#e6db74">&#34;No revenue this period&#34;</span>)
+</span></span><span style="display:flex;"><span>                .font(.footnote)
+</span></span><span style="display:flex;"><span>                .padding(Constants.annotationPadding)
+</span></span><span style="display:flex;"><span>                .background(Color(UIColor.systemBackground))
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>And we&rsquo;re also hiding the y axis when there&rsquo;s no revenue in a chart. This can be handled with a single line using <code>chartYAxis</code> visibility modifier on the Chart:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Swift" data-lang="Swift"><span style="display:flex;"><span>.chartYAxis(hasRevenue ? .visible : .hidden)
+</span></span></code></pre></div><p>And the result:</p>
+<p><img src="annotation.png" alt="Chart with annotation"></p>
+<h3 id="axis-customizations">Axis customizations</h3>
+<p>The labels on the axes of the new chart didn&rsquo;t match the current chart - the labels were too dense, and the formats weren&rsquo;t right for both the dates and revenues. At first, I came up with a simple solution: since we already had implementations to configure labels for the axes, maybe I can send them to the new chart instead? Here was the result:</p>
+<p><img src="string-values.jpeg" alt="Chart with string values"></p>
+<p>This looks so horribly incorrect! The revenues aren&rsquo;t displayed in the correct order, which makes the chart wrong. The reason was probably due to the data for the chart being <code>String</code>s, which is a nominal data type, making Swift infers the chart differently from quantitative and temporal types (numbers and dates). I had to revert this change and look for another solution.</p>
+<p>After watching the aforementioned WWDC video again, I learned that the axes can be configured with <code>AxisMarks</code> through <code>chartXAxis</code> and <code>chartYAxis</code> view modifiers on the Chart. The <code>AxisMarks</code> comes with a constructor that lets us define how to stride the data, and then define the content for each mark, which can be any or all of these: <code>[AxisTick](https://developer.apple.com/documentation/charts/axistick)</code>, <code>[AxisGridLine](https://developer.apple.com/documentation/charts/axisgridline)</code> and <code>[AxisValueLabel](https://developer.apple.com/documentation/charts/axisvaluelabel)</code>.</p>
+<p>For the x-axis, I want to display a limited number of dates and format the date to match the correct time range for the current tab. I set the stride for the dates, and then use only a label for each mark to match the current design:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Swift" data-lang="Swift"><span style="display:flex;"><span>.chartXAxis {
+</span></span><span style="display:flex;"><span>    AxisMarks(values: .stride(by: xAxisStride, count: xAxisStrideCount)) { date <span style="color:#66d9ef">in</span>
+</span></span><span style="display:flex;"><span>        AxisValueLabel(format: xAxisLabelFormatStyle(<span style="color:#66d9ef">for</span>: date.<span style="color:#66d9ef">as</span>(Date.<span style="color:#66d9ef">self</span>) ?? Date()))
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Swift" data-lang="Swift"><span style="display:flex;"><span><span style="color:#66d9ef">private</span> <span style="color:#66d9ef">var</span> xAxisStride: Calendar.Component {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">switch</span> timeRange {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">case</span> .today:
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> .hour
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">case</span> .thisWeek, .thisMonth:
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> .day
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">case</span> .thisYear:
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> .month
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span> 
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">private</span> <span style="color:#66d9ef">var</span> xAxisStrideCount: Int {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">switch</span> timeRange {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">case</span> .today:
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">5</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">case</span> .thisWeek:
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">case</span> .thisMonth:
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">5</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">case</span> .thisYear:
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">3</span>
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span> 
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">private</span> <span style="color:#66d9ef">func</span> <span style="color:#a6e22e">xAxisLabelFormatStyle</span>(<span style="color:#66d9ef">for</span> date: Date) -&gt; Date.FormatStyle {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">switch</span> timeRange {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">case</span> .today:
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> .dateTime.hour()
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">case</span> .thisWeek, .thisMonth:
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> date == intervals.first?.date {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> .dateTime.month(.abbreviated).day(.twoDigits)
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> .dateTime.day(.twoDigits)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">case</span> .thisYear:
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> .dateTime.month(.abbreviated)
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>For the y-axis, we need to work with <code>AxisMarks</code> as well, but the solution is a bit different because the values are numeric. In the current design, we want to display only 3 lines for the y-axis, so I had to calculate the stride such that the data is separated into 2 groups. The labels need to use custom format, so I do that in a helper function and send the formatted content to the <code>AxisValueLabel</code> directly. I also want to display the label on the leading edge, so I set it to the position value of <code>AxisMarks</code>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Swift" data-lang="Swift"><span style="display:flex;"><span>.chartYAxis {
+</span></span><span style="display:flex;"><span>    AxisMarks(position: .leading, values: .stride(by: yAxisStride)) { value <span style="color:#66d9ef">in</span>
+</span></span><span style="display:flex;"><span>        AxisGridLine()
+</span></span><span style="display:flex;"><span>        AxisValueLabel(yAxisLabel(<span style="color:#66d9ef">for</span>: value.<span style="color:#66d9ef">as</span>(Double.<span style="color:#66d9ef">self</span>) ?? <span style="color:#ae81ff">0</span>))
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Swift" data-lang="Swift"><span style="display:flex;"><span><span style="color:#66d9ef">private</span> <span style="color:#66d9ef">var</span> yAxisStride: Double {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> minValue = intervals.map { $0.revenue }.min() ?? <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> maxValue = intervals.map { $0.revenue }.max() ?? <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> (minValue <span style="color:#f92672">+</span> maxValue) <span style="color:#f92672">/</span> <span style="color:#ae81ff">2</span>
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span> 
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">private</span> <span style="color:#66d9ef">func</span> <span style="color:#a6e22e">yAxisLabel</span>(<span style="color:#66d9ef">for</span> revenue: Double) -&gt; String {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> revenue == <span style="color:#ae81ff">0.0</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// Do not show the &#34;0&#34; label on the Y axis</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>    } <span style="color:#66d9ef">else</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">let</span> currencySymbol = ServiceLocator.currencySettings.symbol(from: ServiceLocator.currencySettings.currencyCode)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> CurrencyFormatter(currencySettings: ServiceLocator.currencySettings)
+</span></span><span style="display:flex;"><span>            .formatCurrency(using: revenue.humanReadableString(shouldHideDecimalsForIntegerAbbreviatedValue: <span style="color:#66d9ef">true</span>),
+</span></span><span style="display:flex;"><span>                            currencyPosition: ServiceLocator.currencySettings.currencyPosition,
+</span></span><span style="display:flex;"><span>                            currencySymbol: currencySymbol,
+</span></span><span style="display:flex;"><span>                            isNegative: revenue.sign == .minus)
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>And the result looks great:</p>
+<p><img src="customized-axes.png" alt="Chart with customized axes"></p>
+<h3 id="interactions-with-gestures">Interactions with gestures</h3>
+<p>One last touch to the new chart that I want to add is the feature to highlight a selected date and its revenue when touching any part of the chart. I want to support both tap and drag gestures, and display a vertical line on the date closest to the touch location, while also sending a callback about the selected interval index to update the parent controller UI.</p>
+<p>This can be handled with the <code>chartOverlay</code> modifier together with a <code>GeometryReader</code> to find the position of the touch location on the screen and determine the value at that position using <code>ChartProxy</code>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Swift" data-lang="Swift"><span style="display:flex;"><span>.chartOverlay { proxy <span style="color:#66d9ef">in</span>
+</span></span><span style="display:flex;"><span>    GeometryReader { geometry <span style="color:#66d9ef">in</span>
+</span></span><span style="display:flex;"><span>        Rectangle().fill(.clear).contentShape(Rectangle())
+</span></span><span style="display:flex;"><span>            .gesture(DragGesture()
+</span></span><span style="display:flex;"><span>                .onChanged { value <span style="color:#66d9ef">in</span>
+</span></span><span style="display:flex;"><span>                    updateSelectedDate(at: value.location,
+</span></span><span style="display:flex;"><span>                                       proxy: proxy,
+</span></span><span style="display:flex;"><span>                                       geometry: geometry)
+</span></span><span style="display:flex;"><span>                }
+</span></span><span style="display:flex;"><span>            )
+</span></span><span style="display:flex;"><span>            .onTapGesture { location <span style="color:#66d9ef">in</span>
+</span></span><span style="display:flex;"><span>                updateSelectedDate(at: location,
+</span></span><span style="display:flex;"><span>                                   proxy: proxy,
+</span></span><span style="display:flex;"><span>                                   geometry: geometry)
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Swift" data-lang="Swift"><span style="display:flex;"><span><span style="color:#66d9ef">private</span> <span style="color:#66d9ef">func</span> <span style="color:#a6e22e">updateSelectedDate</span>(at location: CGPoint, proxy: ChartProxy, geometry: GeometryProxy) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">let</span> xPosition = location.x <span style="color:#f92672">-</span> geometry[proxy.plotAreaFrame].origin.x
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">guard</span> <span style="color:#66d9ef">let</span> date: Date = proxy.value(atX: xPosition) <span style="color:#66d9ef">else</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span>
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    selectedDate = intervals
+</span></span><span style="display:flex;"><span>        .sorted(by: {
+</span></span><span style="display:flex;"><span>            abs($0.date.timeIntervalSince(date)) <span style="color:#f92672">&lt;</span> abs($1.date.timeIntervalSince(date))
+</span></span><span style="display:flex;"><span>        })
+</span></span><span style="display:flex;"><span>        .first?.date
+</span></span><span style="display:flex;"><span>    selectedRevenue = intervals.first(<span style="color:#66d9ef">where</span>: { $0.date == selectedDate })?.revenue
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> <span style="color:#66d9ef">let</span> index = intervals.firstIndex(<span style="color:#66d9ef">where</span>: { $0.date == selectedDate }) {
+</span></span><span style="display:flex;"><span>        onIntervalSelected(index)
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Here <code>selectedDate</code> and <code>selectedRevenue</code> are two <code>@State</code> variables that are used to add a <code>RuleMark</code> and <code>PointMark</code> to the chart:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Swift" data-lang="Swift"><span style="display:flex;"><span><span style="color:#66d9ef">if</span> <span style="color:#66d9ef">let</span> selectedDate = selectedDate, hasRevenue {
+</span></span><span style="display:flex;"><span>    RuleMark(x: .value(<span style="color:#e6db74">&#34;Selected date&#34;</span>, selectedDate))
+</span></span><span style="display:flex;"><span>        .foregroundStyle(Color(Constants.chartHighlightLineColor))
+</span></span><span style="display:flex;"><span> 
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> <span style="color:#66d9ef">let</span> selectedRevenue = selectedRevenue {
+</span></span><span style="display:flex;"><span>        PointMark(x: .value(<span style="color:#e6db74">&#34;Selected date&#34;</span>, selectedDate),
+</span></span><span style="display:flex;"><span>                  y: .value(<span style="color:#e6db74">&#34;Selected revenue&#34;</span>, selectedRevenue))
+</span></span><span style="display:flex;"><span>        .foregroundStyle(Color(Constants.chartHighlightLineColor))
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>And the final result 🎉</p>
+<p><img src="final-chart.gif" alt="Final chart"></p>
+<h2 id="further-improvements">Further improvements</h2>
+<p>The experiment was pretty successful, but there are still some points in my checklist that weren&rsquo;t covered:</p>
+<ul>
+<li>The <code>PointMark</code> in the highlighted view needs to have a border and shadow, but I don&rsquo;t know how to handle that yet. I tried adding those in the Color view of the mark&rsquo;s foreground, but the output was not the expected <code>ForegroundStyle</code>.</li>
+<li>The <code>PointMark</code> above also doesn&rsquo;t really align with the label on the x-axis - this is another unsolved mystery to me.</li>
+<li>It&rsquo;d be nice to have some animation when the <code>Chart</code> appears. This was not covered in the WWDC video so I will need some more time to figure this out 😅</li>
+</ul>
+<p>If you&rsquo;re interested in playing with this experiment, join me on the branch <a href="https://github.com/woocommerce/woocommerce-ios/tree/hackweek/swift-charts-dashboard">hackweek/swift-charts-dashboard</a>.</p>
+<h2 id="conclusion">Conclusion</h2>
+<p>I hope you enjoyed this experiment with Swift Charts! We are looking forward to integrating this framework, it was fun to learn how it works and the promising features that it offers. Let me know if you have any questions!</p>
+]]></content></item><item><title>Async Sequence instead of Combine?</title><link>/posts/async-sequence-combine/</link><pubDate>Tue, 14 Jun 2022 10:00:02 +0701</pubDate><guid>/posts/async-sequence-combine/</guid><description>Ever since WWDC 2021, I’ve seen folks getting excited about the introduction of Swift concurrency, a.k.a async/await. It’s very common to come across comments that async/await will soon replace Combine, due to its potential and friendliness.
 TL;DR: The motivation of this post is to discover the power of AsyncSequence when used with Async Algorithms, to see if we can use it in place of Combine. To be more specific, I’m curious to see if we can use it with SwiftUI to handle form validation – one of my favorite applications of Combine when working with SwiftUI.</description><content type="html"><![CDATA[<p>Ever since WWDC 2021, I’ve seen folks getting excited about the introduction of Swift concurrency, a.k.a async/await. It’s very common to come across comments that async/await will soon replace Combine, due to its potential and friendliness.</p>
 <p><strong>TL;DR</strong>: The motivation of this post is to discover the power of <a href="https://href.li/?https://developer.apple.com/documentation/Swift/AsyncSequence">AsyncSequence</a> when used with <a href="https://href.li/?https://github.com/apple/swift-async-algorithms">Async Algorithms</a>, to see if we can use it in place of Combine. To be more specific, I’m curious to see if we can use it with SwiftUI to handle form validation – one of my favorite applications of Combine when working with SwiftUI.</p>
 <p>The short answer is: <strong>Yes!</strong> 🎉</p>
