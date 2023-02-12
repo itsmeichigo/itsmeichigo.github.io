@@ -57,6 +57,11 @@ paginate     = 10
     url        = "/peachy"
 
   [[menu.main]]
+    identifier = "Jot it down"
+    name       = "🗒️"
+    url        = "https://apps.apple.com/app/id1668513911"
+
+  [[menu.main]]
     identifier = "about"
     name       = "about"
     url        = "/about"
