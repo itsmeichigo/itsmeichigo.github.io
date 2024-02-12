@@ -1,4 +1,27 @@
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Posts on Huong Do</title><link>/posts/</link><description>Recent content in Posts on Huong Do</description><generator>Hugo -- gohugo.io</generator><language>en</language><copyright>Huong Do</copyright><lastBuildDate>Mon, 04 Jul 2022 12:23:02 +0700</lastBuildDate><atom:link href="/posts/index.xml" rel="self" type="application/rss+xml"/><item><title>An Adventure with Swift Charts</title><link>/posts/swift-charts/</link><pubDate>Mon, 04 Jul 2022 12:23:02 +0700</pubDate><guid>/posts/swift-charts/</guid><description>This post was original posted on mobile.blog.
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Posts on Huong Do</title><link>/posts/</link><description>Recent content in Posts on Huong Do</description><generator>Hugo -- gohugo.io</generator><language>en</language><copyright>Huong Do</copyright><lastBuildDate>Mon, 30 Jan 2023 10:00:02 +0701</lastBuildDate><atom:link href="/posts/index.xml" rel="self" type="application/rss+xml"/><item><title>Releasing Jot It Down 🗒️</title><link>/posts/jot-it-down/</link><pubDate>Mon, 30 Jan 2023 10:00:02 +0701</pubDate><guid>/posts/jot-it-down/</guid><description>My new app Jot It Down has been released on the Mac App Store!
+Jot It Down is a simple app to quickly note down ideas or checklists.
+Highlights:
+No formatting - focus on your contents only. Markdown content is highlighted automatically. Window always stays on top. Can copy checklist with Markdown format to save somewhere else. All notes are auto saved. Visit all past notes in the note list.</description><content type="html"><![CDATA[<p><img src="Icon-1024.png" alt="Jot It Down"></p>
+<p>My new app <a href="https://apps.apple.com/us/app/jot-it-down-minimal-note-app/id1668513911">Jot It Down</a> has been released on the Mac App Store!</p>
+<p>Jot It Down is a simple app to quickly note down ideas or checklists.</p>
+<p>Highlights:</p>
+<ul>
+<li>No formatting - focus on your contents only.</li>
+<li>Markdown content is highlighted automatically.</li>
+<li>Window always stays on top.</li>
+<li>Can copy checklist with Markdown format to save somewhere else.</li>
+<li>All notes are auto saved.</li>
+<li>Visit all past notes in the note list.</li>
+<li>Fully private: the app has no access to the Internet.</li>
+<li>Export files to your folders.</li>
+</ul>
+<p>This was a small project created during my one week Lunar new year holiday. I always wanted a simple and accessible note app to jot down any quick thoughts and discard them later, and this app serves that purpose. Among thousands of note apps out there, hopefully Jot It Down is helpful for you too.</p>
+<p>Some screenshots of the app:</p>
+<p><img src="history.png" alt="Note list"></p>
+<p><img src="checklist.png" alt="Checklist"></p>
+<p><img src="markdown.png" alt="Markdown highlighted content"></p>
+<p><img src="settings.png" alt="Settings"></p>
+]]></content></item><item><title>An Adventure with Swift Charts</title><link>/posts/swift-charts/</link><pubDate>Mon, 04 Jul 2022 12:23:02 +0700</pubDate><guid>/posts/swift-charts/</guid><description>This post was original posted on mobile.blog.
 As you all may already know, one of the cool new things introduced in WWDC 2022 was Swift Charts, a framework to create charts with SwiftUI. To learn more about the Swift Charts&amp;rsquo; potential, let&amp;rsquo;s go on a thrilling adventure to replace the chart in WooCommerce iOS with this ✨✨ shiny new framework ✨✨.
 To get started, here&amp;rsquo;s what the chart currently looks like in WooCommerce iOS.</description><content type="html"><![CDATA[<p><em>This post was original posted on <a href="https://mobile.blog/2022/07/04/an-adventure-with-swift-charts/">mobile.blog</a>.</em></p>
 <p>As you all may already know, one of the cool new things introduced in WWDC 2022 was <a href="https://developer.apple.com/documentation/Charts">Swift Charts</a>, a framework to create charts with SwiftUI. To learn more about the Swift Charts&rsquo; potential, let&rsquo;s go on a thrilling adventure to replace the chart in <a href="https://apps.apple.com/us/app/woocommerce/id1389130815">WooCommerce iOS</a> with this ✨✨ shiny new framework ✨✨.</p>
@@ -261,6 +284,25 @@ TL;DR: The motivation of this post is to discover the power of AsyncSequence whe
 <li><a href="https://href.li/?https://www.donnywals.com/comparing-use-cases-for-async-sequences-and-publishers/">Comparing use cases for async sequences and publishers</a></li>
 <li><a href="https://href.li/?https://developer.apple.com/wwdc22/sessions/">Meet Swift Async Algorithms</a></li>
 </ul>
+]]></content></item><item><title>Releasing Peachy 🍑</title><link>/posts/peachy/</link><pubDate>Sun, 20 Mar 2022 10:00:02 +0701</pubDate><guid>/posts/peachy/</guid><description>I&amp;rsquo;m happy to announce that Peachy is finally out in the wild! 🎉
+Peachy is a Mac app for entering Kaomojis easily. This was inspired by Rocket and suggested/encouraged/challenged by a friend. I took this as an opportunity to get my feet wet with Mac app development, and it was a wholesome experience with a lot of challenges:
+Integration of SwiftUI and AppKit. SwiftUI is nice for creating simple views, but for complex customizations, AppKit is the solution.</description><content type="html"><![CDATA[<p><img src="demo.gif" alt="Peachy Demo"></p>
+<p>I&rsquo;m happy to announce that <a href="https://itsmeichigo.io/peachy/">Peachy</a> is finally out in the wild! 🎉</p>
+<p>Peachy is a Mac app for entering Kaomojis easily. This was inspired by <a href="https://matthewpalmer.net/rocket/">Rocket</a> and suggested/encouraged/challenged by a friend. I took this as an opportunity to get my feet wet with Mac app development, and it was a wholesome experience with a lot of challenges:</p>
+<ul>
+<li>Integration of SwiftUI and AppKit. SwiftUI is nice for creating simple views, but for complex customizations, AppKit is the solution. It was painful, but I did learn a lot.</li>
+<li>Integration of the Accessibility API and learning AppleScript.</li>
+<li>A lot of workarounds!</li>
+<li>Since Accessibility API doesn&rsquo;t work with Sandbox, the app cannot be shipped in the App Store. This came with another bunch of challenges:
+<ul>
+<li>Creating and notarizing the DMG for the app.</li>
+<li>Hosting the app manually.</li>
+<li>Building a landing page to introduce the app.</li>
+<li>Managing app versions with <a href="https://sparkle-project.org">Sparkle</a>.</li>
+</ul>
+</li>
+</ul>
+<p>More excitedly, Peachy is FREE and <a href="https://github.com/itsmeichigo/peachy">opensource</a>! If you like Peachy, please feel free to <a href="https://www.buymeacoffee.com/itsmeichigo">buy me a cocktail</a>. Cheers! 🍸</p>
 ]]></content></item><item><title>Working with observable objects in SwiftUI</title><link>/posts/swiftui-observable-objects/</link><pubDate>Sat, 11 Sep 2021 10:00:02 +0701</pubDate><guid>/posts/swiftui-observable-objects/</guid><description>Earlier this week I learned about @StateObject initializer when reviewing a pull request. The idea was to create a view model for a SwiftUI view using some injected parameter and keep the view model as a @StateObject so that the its state is persisted when the view is redrawn. The view creates the @StateObject like so:
 class ItemViewModel: ObservableObject { @Published var itemName: String init(item: Item) { self.itemName = item.name } } struct ItemView: View { @StateObject private var viewModel: ItemViewModel init(item: Item) { _viewModel = StateObject(wrappedValue: ItemViewModel(item: item)) } var body: some View { TextField(&amp;#34;Item Name&amp;#34;, text: viewModel.</description><content type="html"><![CDATA[<p>Earlier this week I learned about <code>@StateObject</code> <a href="https://developer.apple.com/documentation/swiftui/stateobject/init(wrappedvalue:)">initializer</a> when reviewing a pull request. The idea was to create a view model for a SwiftUI view using some injected parameter and keep the view model as a <code>@StateObject</code> so that the its state is persisted when the view is redrawn. The view creates the <code>@StateObject</code> like so:</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-swift" data-lang="swift"><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">ItemViewModel</span>: ObservableObject {
