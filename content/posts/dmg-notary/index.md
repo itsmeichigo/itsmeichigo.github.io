@@ -14,7 +14,7 @@ Last week, I wanted to add an update to one of my mac apps [Peachy](https://itsm
 
 I had some free time due to the Lunar new year holiday, so this was an opportunity to learn something new. It's time to automate the distribution process for my mac apps, and a CLI tool is a perfect solution for this.
 
-First thing first, I went to my trusted friend Google (not ChatGPT, surprise 👻) - and looked for a quick tutorial to build a CLI tool in Swift. Surprisingly, all of the tutorials I found were outdated, except for the ~bible~ [documentation](https://www.swift.org/getting-started/cli-swiftpm/). This post will sum up things that I learned during the process.
+First thing first, I went to my trusted friend Google (not ChatGPT, surprise 👻) - and looked for a quick tutorial to build a CLI tool in Swift. Surprisingly, all of the tutorials I found were outdated, except for the ~~bible~~ [documentation](https://www.swift.org/getting-started/cli-swiftpm/). This post will sum up things that I learned during the process.
 
 ## Getting Started
 The first thing to do is create a Swift package of executable type:
@@ -27,7 +27,7 @@ I used Swift 5.9, and the newly created package contained the `Package.swift` fi
 
 The default package came with a `main.swift` file. We can create a `struct` in this file and trigger its `.main()` method. Since Swift 5.3, we can rename the file to the same as the type and mark it as the entry point with `@main`. This is the best practice since it makes the project structure cleaner and more organized.
 
-The root `struct` needs to conform to the `PassableCommand` protocol and define the arguments and options for the CLI.
+The root `struct` needs to conform to the `PassableCommand` protocol and define the arguments and options for the CLI tool.
 
 Another cool dependency is [`ShellOut`](https://github.com/JohnSundell/ShellOut) which is helpful for triggering command lines from our Swift scripts.
 
@@ -37,7 +37,10 @@ Another cool dependency is [`ShellOut`](https://github.com/JohnSundell/ShellOut)
 The second part of the script triggers commands to `notarytool` to handle the notarization step. Due to the proxy, I had to handle the edge case when the user opts to enter their password separately instead of providing it in plain text in the command. The goal was to keep their password field hidden rather than plain text with `readline()`. I learned about `getpass` (and also the term [shoulder surfing](https://en.wikipedia.org/wiki/Shoulder_surfing_(computer_security))), which was the solution to this problem.
 
 ## Conclusion
-The sourcecode of dmg-notary can be found on my Github [repo](https://github.com/itsmeichigo/dmg-notary). I hope the tool is helpful for someone else too.
+The sourcecode of dmg-notary can be found on my Github [repo](https://github.com/itsmeichigo/dmg-notary).
+
+## Alternative notarization method
+A simpler way to notarize mac apps is to add a post-action script to the Archive step of your app's scheme. More details can be found [here](https://developer.apple.com/documentation/security/notarizing_macos_software_before_distribution/customizing_the_notarization_workflow/customizing_the_xcode_archive_process).
 
 ## References
 - [Notarizing MacOS software before distribution](https://developer.apple.com/documentation/security/notarizing_macos_software_before_distribution)
