@@ -302,7 +302,7 @@ Integration of SwiftUI and AppKit. SwiftUI is nice for creating simple views, bu
 </ul>
 </li>
 </ul>
-<p>More excitedly, Peachy is FREE and <a href="https://github.com/itsmeichigo/peachy">opensource</a>! If you like Peachy, please feel free to <a href="https://www.buymeacoffee.com/itsmeichigo">buy me a cocktail</a>. Cheers! 🍸</p>
+<p>More excitingly, Peachy is FREE and <a href="https://github.com/itsmeichigo/peachy">opensource</a>! If you like Peachy, please feel free to <a href="https://www.buymeacoffee.com/itsmeichigo">buy me a cocktail</a>. Cheers! 🍸</p>
 ]]></content></item><item><title>Working with observable objects in SwiftUI</title><link>/posts/swiftui-observable-objects/</link><pubDate>Sat, 11 Sep 2021 10:00:02 +0701</pubDate><guid>/posts/swiftui-observable-objects/</guid><description>Earlier this week I learned about @StateObject initializer when reviewing a pull request. The idea was to create a view model for a SwiftUI view using some injected parameter and keep the view model as a @StateObject so that the its state is persisted when the view is redrawn. The view creates the @StateObject like so:
 class ItemViewModel: ObservableObject { @Published var itemName: String init(item: Item) { self.itemName = item.name } } struct ItemView: View { @StateObject private var viewModel: ItemViewModel init(item: Item) { _viewModel = StateObject(wrappedValue: ItemViewModel(item: item)) } var body: some View { TextField(&amp;#34;Item Name&amp;#34;, text: viewModel.</description><content type="html"><![CDATA[<p>Earlier this week I learned about <code>@StateObject</code> <a href="https://developer.apple.com/documentation/swiftui/stateobject/init(wrappedvalue:)">initializer</a> when reviewing a pull request. The idea was to create a view model for a SwiftUI view using some injected parameter and keep the view model as a <code>@StateObject</code> so that the its state is persisted when the view is redrawn. The view creates the <code>@StateObject</code> like so:</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-swift" data-lang="swift"><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">ItemViewModel</span>: ObservableObject {
@@ -421,6 +421,37 @@ Usually we have several teams working on different features, and we break down t
 </ul>
 <p>I hope this post is helpful for other developers to when working with pull requests. If you have more suggestions for best practices of pull requests, do reach out to me via <a href="https://twitter.com/itsmeichigo">Twitter</a>!</p>
 <p>Until next time 👋</p>
+]]></content></item><item><title>Releasing Fretboard 🎸</title><link>/posts/fretboard/</link><pubDate>Sat, 30 Jan 2021 10:00:02 +0701</pubDate><guid>/posts/fretboard/</guid><description>Fretboard is a weekend project to display guitar and ukulele chords using SwiftUI.
+Features:
+🎵 Chord positions 🌗 Light / Dark modes 🎸 Guitar &amp;amp; ukulele chords with basic tunings ⏳ More to come. Installation Swift Package Manager Add https://github.com/itsmeichigo/Fretboard.git as the source and you&amp;rsquo;re good to go.
+Manual install Copy contents from Sources folder to your project.
+Usage Get your desired instruments:
+let guitar = Instrument.guitar let ukulele = Instrument.</description><content type="html"><![CDATA[<p><img src="logo.png" alt="Fretboard Logo"></p>
+<p><a href="https://github.com/itsmeichigo/Fretboard">Fretboard</a> is a weekend project to display guitar and ukulele chords using SwiftUI.</p>
+<p>Features:</p>
+<ul>
+<li>🎵 Chord positions</li>
+<li>🌗 Light / Dark modes</li>
+<li>🎸 Guitar &amp; ukulele chords with basic tunings</li>
+<li>⏳ More to come.</li>
+</ul>
+<h2 id="installation">Installation</h2>
+<h4 id="swift-package-manager">Swift Package Manager</h4>
+<p>Add <a href="https://github.com/itsmeichigo/Fretboard.git">https://github.com/itsmeichigo/Fretboard.git</a> as the source and you&rsquo;re good to go.</p>
+<h4 id="manual-install">Manual install</h4>
+<p>Copy contents from Sources folder to your project.</p>
+<h2 id="usage">Usage</h2>
+<p>Get your desired instruments:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Swift" data-lang="Swift"><span style="display:flex;"><span><span style="color:#66d9ef">let</span> guitar = Instrument.guitar
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">let</span> ukulele = Instrument.ukulele
+</span></span></code></pre></div><p>Each instrument comes with their own name, keys, suffixes and chords. Get a list of positions for a chord using key and suffix:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Swift" data-lang="Swift"><span style="display:flex;"><span><span style="color:#66d9ef">let</span> dAug9Positions = guitar.findChordPositions(key: <span style="color:#e6db74">&#34;D&#34;</span>, suffix: <span style="color:#e6db74">&#34;aug9&#34;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">let</span> cMajorUkuPositions = Instrument.ukulele.findChordPositions(key: <span style="color:#e6db74">&#34;C&#34;</span>, suffix: <span style="color:#e6db74">&#34;major&#34;</span>)
+</span></span></code></pre></div><p>Display any chord by sending it to <code>FretboardView</code>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Swift" data-lang="Swift"><span style="display:flex;"><span>FretboardView(position: dAug9Position)
+</span></span><span style="display:flex;"><span>    .frame(width: <span style="color:#ae81ff">100</span>, height: <span style="color:#ae81ff">200</span>)
+</span></span></code></pre></div><h2 id="demo-app">Demo app</h2>
+<p><img src="screenshot.png" alt="screenshot"></p>
 ]]></content></item><item><title>Combine from RxSwift - Highlights for smooth adaption</title><link>/posts/combine-from-rxswift/</link><pubDate>Wed, 16 Dec 2020 21:23:02 +0700</pubDate><guid>/posts/combine-from-rxswift/</guid><description>RxSwift has been around since 2015 and widely known among Apple developer community as an efficient open-sourced FRP library. In WWDC 2019 Apple introduced their very own FRP framework, making it possible to utilize the paradigm natively with declarative Swift API. The two frameworks share quite a few similarities in terms of principles and usage, so it can be not too daunting to get your feet wet with Combine if you have already been using RxSwift in your projects.</description><content type="html"><![CDATA[<p>RxSwift has been around since 2015 and widely known among Apple developer community as an efficient open-sourced FRP library. In WWDC 2019 Apple introduced their very own FRP framework, making it possible to utilize the paradigm natively with declarative Swift API. The two frameworks share quite a few similarities in terms of principles and usage, so it can be not too daunting to get your feet wet with Combine if you have already been using RxSwift in your projects.</p>
 <p>If you search around the topic, it’s easy to find a <a href="https://medium.com/gett-engineering/rxswift-to-apples-combine-cheat-sheet-e9ce32b14c5b">cheatsheet</a> for migrating from RxSwift to Combine summed up by <a href="https://twitter.com/freak4pc">Shai Mishali</a> which is helpful to have a good overview comparision between the two frameworks. In this article I would like to highlight some interesting points about Combine from the viewpoint of a developer who has been working with RxSwift for more than two years.</p>
 <h2 id="publishers--subscribers">Publishers &amp; Subscribers</h2>
