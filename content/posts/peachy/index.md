@@ -25,4 +25,4 @@ Peachy is a Mac app for entering Kaomojis easily. This was inspired by [Rocket](
   - Building a landing page to introduce the app.
   - Managing app versions with [Sparkle](https://sparkle-project.org).
 
-More excitedly, Peachy is FREE and [opensource](https://github.com/itsmeichigo/peachy)! If you like Peachy, please feel free to [buy me a cocktail](https://www.buymeacoffee.com/itsmeichigo). Cheers! 🍸
+More excitingly, Peachy is FREE and [opensource](https://github.com/itsmeichigo/peachy)! If you like Peachy, please feel free to [buy me a cocktail](https://www.buymeacoffee.com/itsmeichigo). Cheers! 🍸
