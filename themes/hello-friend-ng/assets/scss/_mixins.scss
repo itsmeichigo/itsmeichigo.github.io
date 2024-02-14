@@ -1,3 +1,7 @@
 @mixin dimmed {
   opacity: .6;
 }
+
+@mixin box-shadow($top, $left, $blur, $size, $color) {
+  box-shadow: $top $left $blur $size $color
+}

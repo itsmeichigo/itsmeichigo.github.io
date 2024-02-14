@@ -21,6 +21,13 @@
       padding: 16px;
       margin-top: 16px;
 
+      &:hover {
+        @include box-shadow(0px, 0px, 5px, 5px, $light-background-secondary);
+        .dark-theme & {
+          @include box-shadow(0px, 0px, 5px, 5px, $dark-background-secondary);
+        }
+      }
+
       .dark-theme & {
           border-color: $dark-border-color;
       }
@@ -34,8 +41,8 @@
       }
 
       img {
-        width: 64px;
-        height: 64px;
+        width: 100px;
+        height: 100px;
       }
 
       &-info {
