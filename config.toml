@@ -52,14 +52,9 @@ paginate     = 10
   # And you can even create generic menu
 
   [[menu.main]]
-    identifier = "peachy"
-    name       = "🍑"
-    url        = "/peachy"
-
-  [[menu.main]]
-    identifier = "Jot it down"
-    name       = "🗒️"
-    url        = "https://apps.apple.com/app/id1668513911"
+    identifier = "apps"
+    name       = "apps"
+    url        = "/apps"
 
   [[menu.main]]
     identifier = "about"

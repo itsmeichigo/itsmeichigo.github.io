@@ -1,0 +1,24 @@
+[
+    {
+        "name": "Peachy",
+        "url": "https://itsmeichigo.io/peachy",
+        "thumbnail": "https://itsmeichigo.io/img/apps/peachy.png",
+        "description": "Quickly enter kaomojis to any apps on your Mac",
+        "tags": [
+            "kaomoji",
+            "productivity",
+            "macOS"
+        ]
+    },
+    {
+        "name": "Jot It Down",
+        "url": "https://apps.apple.com/app/id1668513911",
+        "thumbnail": "https://itsmeichigo.io/img/apps/jotitdown.png",
+        "description": "Minimal note app available from your Mac's status bar",
+        "tags": [
+            "note",
+            "productivity",
+            "macOS"
+        ]
+    }
+]

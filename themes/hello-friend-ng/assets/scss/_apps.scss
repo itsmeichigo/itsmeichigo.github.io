@@ -1,0 +1,71 @@
+.apps {
+    width: 100%;
+    max-width: 800px;
+    text-align: left;
+    padding: 20px;
+    margin: 20px auto;
+  
+    @media #{$media-size-tablet} {
+      max-width: 660px;
+    }
+  
+    ul {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+  
+    .app {
+      border: 1px solid $light-border-color;
+      border-radius: 8px;
+      padding: 16px;
+      margin-top: 16px;
+
+      .dark-theme & {
+          border-color: $dark-border-color;
+      }
+
+      a {
+          text-decoration: none;
+          padding: 10px 10px;
+          display: flex;
+          justify-content: flex-start;
+          align-items: center;
+      }
+
+      img {
+        width: 64px;
+        height: 64px;
+      }
+
+      &-info {
+        padding-left: 20px;
+      }
+
+      &-title {
+        font-size: 1rem;
+        font-weight: bold;
+      }
+
+      &-description {
+        margin-top: 10px;
+        font-size: 0.9rem;
+        @include dimmed;
+      }
+    
+      &-tag-list {
+        margin-top: 10px;
+        .tag {
+            font-size: 0.8rem;
+            margin-right: 0.5em;
+            padding: 5px;
+            border-radius: 5px;
+            background: $light-background-secondary;
+            .dark-theme & {
+              background: $dark-background-secondary;
+            }
+          }
+      }
+    }
+  }
+  

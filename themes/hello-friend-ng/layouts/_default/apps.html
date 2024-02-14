@@ -1,0 +1,26 @@
+{{ define "main" }}
+    <main class="apps">
+        <h1>Apps by Huong Do</h1>
+        <ul>
+            {{ range $.Site.Data.apps }}
+                <li class="app">
+                    <a href="{{ .url }}" target="_blank">
+                        <img src="{{ .thumbnail }}" alt="{{ .name }} Logo" />
+                        <div class="app-info">
+                            <span class="app-title">{{ .name }}</span>
+                            <div class="app-description">
+                                {{ .description }}
+                            </div>
+                            <div class="app-tag-list">
+                                {{ range .tags }}
+                                    <span class="tag">{{.}}</span>
+                                {{ end }}
+                            </div>
+                            
+                        </div>
+                    </a>
+                </li>
+            {{ end }}
+        </ul>
+    </main>
+{{ end }}
