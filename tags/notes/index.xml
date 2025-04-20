@@ -1,4 +1,15 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>notes on Huong Do</title><link>/tags/notes/</link><description>Recent content in notes on Huong Do</description><generator>Hugo -- gohugo.io</generator><language>en</language><copyright>Huong Do</copyright><lastBuildDate>Mon, 30 Jan 2023 10:00:02 +0701</lastBuildDate><atom:link href="/tags/notes/index.xml" rel="self" type="application/rss+xml"/><item><title>Releasing Jot It Down 🗒️</title><link>/posts/jot-it-down/</link><pubDate>Mon, 30 Jan 2023 10:00:02 +0701</pubDate><guid>/posts/jot-it-down/</guid><description>My new app Jot It Down has been released on the Mac App Store!
-Jot It Down is a simple app to quickly note down ideas or checklists.
-Highlights:
-No formatting - focus on your contents only. Markdown content is highlighted automatically. Window always stays on top. Can copy checklist with Markdown format to save somewhere else. All notes are auto saved. Visit all past notes in the note list.</description></item></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Notes on Huong Do</title><link>/tags/notes/</link><description>Recent content in Notes on Huong Do</description><generator>Hugo</generator><language>en</language><copyright>Huong Do</copyright><lastBuildDate>Mon, 30 Jan 2023 10:00:02 +0701</lastBuildDate><atom:link href="/tags/notes/index.xml" rel="self" type="application/rss+xml"/><item><title>Releasing Jot It Down 🗒️</title><link>/posts/jot-it-down/</link><pubDate>Mon, 30 Jan 2023 10:00:02 +0701</pubDate><guid>/posts/jot-it-down/</guid><description>&lt;p>&lt;img src="/posts/jot-it-down/Icon-1024.png" alt="Jot It Down">&lt;/p>
+&lt;p>My new app &lt;a href="https://apps.apple.com/us/app/jot-it-down-minimal-note-app/id1668513911">Jot It Down&lt;/a> has been released on the Mac App Store!&lt;/p>
+&lt;p>Jot It Down is a simple app to quickly note down ideas or checklists.&lt;/p>
+&lt;p>Highlights:&lt;/p>
+&lt;ul>
+&lt;li>No formatting - focus on your contents only.&lt;/li>
+&lt;li>Markdown content is highlighted automatically.&lt;/li>
+&lt;li>Window always stays on top.&lt;/li>
+&lt;li>Can copy checklist with Markdown format to save somewhere else.&lt;/li>
+&lt;li>All notes are auto saved.&lt;/li>
+&lt;li>Visit all past notes in the note list.&lt;/li>
+&lt;li>Fully private: the app has no access to the Internet.&lt;/li>
+&lt;li>Export files to your folders.&lt;/li>
+&lt;/ul>
+&lt;p>This was a small project created during my one week Lunar new year holiday. I always wanted a simple and accessible note app to jot down any quick thoughts and discard them later, and this app serves that purpose. Among thousands of note apps out there, hopefully Jot It Down is helpful for you too.&lt;/p></description></item></channel></rss>

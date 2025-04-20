@@ -1,5 +1,5 @@
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Posts on Huong Do</title><link>/posts/</link><description>Recent content in Posts on Huong Do</description><generator>Hugo -- gohugo.io</generator><language>en</language><copyright>Huong Do</copyright><lastBuildDate>Mon, 12 Feb 2024 17:00:00 +0701</lastBuildDate><atom:link href="/posts/index.xml" rel="self" type="application/rss+xml"/><item><title>Building a CLI tool with SwiftPM for Mac app distribution</title><link>/posts/dmg-notary/</link><pubDate>Mon, 12 Feb 2024 17:00:00 +0701</pubDate><guid>/posts/dmg-notary/</guid><description>Last week, I wanted to add an update to one of my mac apps Peachy after a long time. I realized that the atool used for notarizing mac apps has long been discontinued and it was time to switch to notarytool. It took me a while to read through Apple documentations and WWDC videos again to finally be able to distribute a working DMG for the new version.
-I had some free time due to the Lunar new year holiday, so this was an opportunity to learn something new.</description><content type="html"><![CDATA[<p>Last week, I wanted to add an update to one of my mac apps <a href="https://itsmeichigo.io/peachy">Peachy</a> after a long time. I realized that the <code>atool</code> used for notarizing mac apps has long been discontinued and it was time to switch to <a href="https://developer.apple.com/documentation/security/notarizing_macos_software_before_distribution"><code>notarytool</code></a>. It took me a while to read through Apple documentations and WWDC videos again to finally be able to distribute a working DMG for the new version.</p>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Posts on Huong Do</title><link>/posts/</link><description>Recent content in Posts on Huong Do</description><generator>Hugo -- gohugo.io</generator><language>en</language><copyright>Huong Do</copyright><lastBuildDate>Mon, 12 Feb 2024 17:00:00 +0701</lastBuildDate><atom:link href="/posts/index.xml" rel="self" type="application/rss+xml"/><item><title>Building a CLI tool with SwiftPM for Mac app distribution</title><link>/posts/dmg-notary/</link><pubDate>Mon, 12 Feb 2024 17:00:00 +0701</pubDate><guid>/posts/dmg-notary/</guid><description>&lt;p>Last week, I wanted to add an update to one of my mac apps &lt;a href="https://itsmeichigo.io/peachy">Peachy&lt;/a> after a long time. I realized that the &lt;code>atool&lt;/code> used for notarizing mac apps has long been discontinued and it was time to switch to &lt;a href="https://developer.apple.com/documentation/security/notarizing_macos_software_before_distribution">&lt;code>notarytool&lt;/code>&lt;/a>. It took me a while to read through Apple documentations and WWDC videos again to finally be able to distribute a working DMG for the new version.&lt;/p>
+&lt;p>I had some free time due to the Lunar new year holiday, so this was an opportunity to learn something new. It&amp;rsquo;s time to automate the distribution process for my mac apps, and a CLI tool is a perfect solution for this.&lt;/p></description><content type="html"><![CDATA[<p>Last week, I wanted to add an update to one of my mac apps <a href="https://itsmeichigo.io/peachy">Peachy</a> after a long time. I realized that the <code>atool</code> used for notarizing mac apps has long been discontinued and it was time to switch to <a href="https://developer.apple.com/documentation/security/notarizing_macos_software_before_distribution"><code>notarytool</code></a>. It took me a while to read through Apple documentations and WWDC videos again to finally be able to distribute a working DMG for the new version.</p>
 <p>I had some free time due to the Lunar new year holiday, so this was an opportunity to learn something new. It&rsquo;s time to automate the distribution process for my mac apps, and a CLI tool is a perfect solution for this.</p>
 <p>First thing first, I went to my trusted friend Google (not ChatGPT, surprise 👻) - and looked for a quick tutorial to build a CLI tool in Swift. Surprisingly, all of the tutorials I found were outdated, except for the <del>bible</del> <a href="https://www.swift.org/getting-started/cli-swiftpm/">documentation</a>. This post will sum up things that I learned during the process.</p>
 <h2 id="getting-started">Getting Started</h2>
@@ -11,7 +11,7 @@ I had some free time due to the Lunar new year holiday, so this was an opportuni
 <p>Another cool dependency is <a href="https://github.com/JohnSundell/ShellOut"><code>ShellOut</code></a> which is helpful for triggering command lines from our Swift scripts.</p>
 <h2 id="implementation-highlights">Implementation highlights</h2>
 <p><code>dmg-notary</code> was inspired by <a href="https://github.com/insidegui/dmgdist"><code>dmgdist</code></a>, which also depends on <a href="https://github.com/sindresorhus/create-dmg"><code>create-dmg</code></a> for generating a DMG from an app file. The first part of the script uses <code>shellout</code> to trigger the <code>create-dmg</code> command for this step.</p>
-<p>The second part of the script triggers commands to <code>notarytool</code> to handle the notarization step. Due to the proxy, I had to handle the edge case when the user opts to enter their password separately instead of providing it in plain text in the command. The goal was to keep their password field hidden rather than plain text with <code>readline()</code>. I learned about <code>getpass</code> (and also the term <a href="https://en.wikipedia.org/wiki/Shoulder_surfing_(computer_security)">shoulder surfing</a>), which was the solution to this problem.</p>
+<p>The second part of the script triggers commands to <code>notarytool</code> to handle the notarization step. Due to the proxy, I had to handle the edge case when the user opts to enter their password separately instead of providing it in plain text in the command. The goal was to keep their password field hidden rather than plain text with <code>readline()</code>. I learned about <code>getpass</code> (and also the term <a href="https://en.wikipedia.org/wiki/Shoulder_surfing_%28computer_security%29">shoulder surfing</a>), which was the solution to this problem.</p>
 <h2 id="conclusion">Conclusion</h2>
 <p>The sourcecode of dmg-notary can be found on my Github <a href="https://github.com/itsmeichigo/dmg-notary">repo</a>.</p>
 <h2 id="alternative-notarization-method">Alternative notarization method</h2>
@@ -22,10 +22,21 @@ I had some free time due to the Lunar new year holiday, so this was an opportuni
 <li><a href="https://www.swift.org/getting-started/cli-swiftpm/">Build a command-line tool</a></li>
 <li><a href="https://rderik.com/blog/how-to-read-passwords-and-sensitive-data-from-the-command-line-using-swift/">How to read passwords and sensitive data from the command-line using Swift</a></li>
 </ul>
-]]></content></item><item><title>Releasing Jot It Down 🗒️</title><link>/posts/jot-it-down/</link><pubDate>Mon, 30 Jan 2023 10:00:02 +0701</pubDate><guid>/posts/jot-it-down/</guid><description>My new app Jot It Down has been released on the Mac App Store!
-Jot It Down is a simple app to quickly note down ideas or checklists.
-Highlights:
-No formatting - focus on your contents only. Markdown content is highlighted automatically. Window always stays on top. Can copy checklist with Markdown format to save somewhere else. All notes are auto saved. Visit all past notes in the note list.</description><content type="html"><![CDATA[<p><img src="Icon-1024.png" alt="Jot It Down"></p>
+]]></content></item><item><title>Releasing Jot It Down 🗒️</title><link>/posts/jot-it-down/</link><pubDate>Mon, 30 Jan 2023 10:00:02 +0701</pubDate><guid>/posts/jot-it-down/</guid><description>&lt;p>&lt;img src="/posts/jot-it-down/Icon-1024.png" alt="Jot It Down">&lt;/p>
+&lt;p>My new app &lt;a href="https://apps.apple.com/us/app/jot-it-down-minimal-note-app/id1668513911">Jot It Down&lt;/a> has been released on the Mac App Store!&lt;/p>
+&lt;p>Jot It Down is a simple app to quickly note down ideas or checklists.&lt;/p>
+&lt;p>Highlights:&lt;/p>
+&lt;ul>
+&lt;li>No formatting - focus on your contents only.&lt;/li>
+&lt;li>Markdown content is highlighted automatically.&lt;/li>
+&lt;li>Window always stays on top.&lt;/li>
+&lt;li>Can copy checklist with Markdown format to save somewhere else.&lt;/li>
+&lt;li>All notes are auto saved.&lt;/li>
+&lt;li>Visit all past notes in the note list.&lt;/li>
+&lt;li>Fully private: the app has no access to the Internet.&lt;/li>
+&lt;li>Export files to your folders.&lt;/li>
+&lt;/ul>
+&lt;p>This was a small project created during my one week Lunar new year holiday. I always wanted a simple and accessible note app to jot down any quick thoughts and discard them later, and this app serves that purpose. Among thousands of note apps out there, hopefully Jot It Down is helpful for you too.&lt;/p></description><content type="html"><![CDATA[<p><img src="/posts/jot-it-down/Icon-1024.png" alt="Jot It Down"></p>
 <p>My new app <a href="https://apps.apple.com/us/app/jot-it-down-minimal-note-app/id1668513911">Jot It Down</a> has been released on the Mac App Store!</p>
 <p>Jot It Down is a simple app to quickly note down ideas or checklists.</p>
 <p>Highlights:</p>
@@ -41,16 +52,16 @@ No formatting - focus on your contents only. Markdown content is highlighted aut
 </ul>
 <p>This was a small project created during my one week Lunar new year holiday. I always wanted a simple and accessible note app to jot down any quick thoughts and discard them later, and this app serves that purpose. Among thousands of note apps out there, hopefully Jot It Down is helpful for you too.</p>
 <p>Some screenshots of the app:</p>
-<p><img src="history.png" alt="Note list"></p>
-<p><img src="checklist.png" alt="Checklist"></p>
-<p><img src="markdown.png" alt="Markdown highlighted content"></p>
-<p><img src="settings.png" alt="Settings"></p>
-]]></content></item><item><title>An Adventure with Swift Charts</title><link>/posts/swift-charts/</link><pubDate>Mon, 04 Jul 2022 12:23:02 +0700</pubDate><guid>/posts/swift-charts/</guid><description>This post was original posted on mobile.blog.
-As you all may already know, one of the cool new things introduced in WWDC 2022 was Swift Charts, a framework to create charts with SwiftUI. To learn more about the Swift Charts&amp;rsquo; potential, let&amp;rsquo;s go on a thrilling adventure to replace the chart in WooCommerce iOS with this ✨✨ shiny new framework ✨✨.
-To get started, here&amp;rsquo;s what the chart currently looks like in WooCommerce iOS.</description><content type="html"><![CDATA[<p><em>This post was original posted on <a href="https://mobile.blog/2022/07/04/an-adventure-with-swift-charts/">mobile.blog</a>.</em></p>
+<p><img src="/posts/jot-it-down/history.png" alt="Note list"></p>
+<p><img src="/posts/jot-it-down/checklist.png" alt="Checklist"></p>
+<p><img src="/posts/jot-it-down/markdown.png" alt="Markdown highlighted content"></p>
+<p><img src="/posts/jot-it-down/settings.png" alt="Settings"></p>
+]]></content></item><item><title>An Adventure with Swift Charts</title><link>/posts/swift-charts/</link><pubDate>Mon, 04 Jul 2022 12:23:02 +0700</pubDate><guid>/posts/swift-charts/</guid><description>&lt;p>&lt;em>This post was original posted on &lt;a href="https://mobile.blog/2022/07/04/an-adventure-with-swift-charts/">mobile.blog&lt;/a>.&lt;/em>&lt;/p>
+&lt;p>As you all may already know, one of the cool new things introduced in WWDC 2022 was &lt;a href="https://developer.apple.com/documentation/Charts">Swift Charts&lt;/a>, a framework to create charts with SwiftUI. To learn more about the Swift Charts&amp;rsquo; potential, let&amp;rsquo;s go on a thrilling adventure to replace the chart in &lt;a href="https://apps.apple.com/us/app/woocommerce/id1389130815">WooCommerce iOS&lt;/a> with this ✨✨ shiny new framework ✨✨.&lt;/p>
+&lt;p>To get started, here&amp;rsquo;s what the chart currently looks like in WooCommerce iOS. We&amp;rsquo;d want to build something similar using Swift Charts:&lt;/p></description><content type="html"><![CDATA[<p><em>This post was original posted on <a href="https://mobile.blog/2022/07/04/an-adventure-with-swift-charts/">mobile.blog</a>.</em></p>
 <p>As you all may already know, one of the cool new things introduced in WWDC 2022 was <a href="https://developer.apple.com/documentation/Charts">Swift Charts</a>, a framework to create charts with SwiftUI. To learn more about the Swift Charts&rsquo; potential, let&rsquo;s go on a thrilling adventure to replace the chart in <a href="https://apps.apple.com/us/app/woocommerce/id1389130815">WooCommerce iOS</a> with this ✨✨ shiny new framework ✨✨.</p>
 <p>To get started, here&rsquo;s what the chart currently looks like in WooCommerce iOS. We&rsquo;d want to build something similar using Swift Charts:</p>
-<p><img src="current-state.jpeg" alt="Current state"></p>
+<p><img src="/posts/swift-charts/current-state.jpeg" alt="Current state"></p>
 <h2 id="preparations">Preparations</h2>
 <p>The plan is to keep the placeholder in the current view controller where we can add a hosting controller for the new chart (written in SwiftUI) there. We need a new simple <code>struct</code> to encapsulate the basic data needed for the chart. The <code>struct</code> needs to conform to <code>Identifiable</code> just so we can iterate through a collection of this type in SwiftUI.</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Swift" data-lang="Swift"><span style="display:flex;"><span><span style="color:#75715e">/// A struct for data to be displayed on a Swift chart.</span>
@@ -85,7 +96,7 @@ To get started, here&amp;rsquo;s what the chart currently looks like in WooComme
 </span></span><span style="display:flex;"><span>    }
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><p>The result looks good with such minimal configuration:</p>
-<p><img src="basic-chart.png" alt="Basic Chart"></p>
+<p><img src="/posts/swift-charts/basic-chart.png" alt="Basic Chart"></p>
 <h2 id="customizations">Customizations</h2>
 <p>The new chart displays correct data but doesn&rsquo;t look quite close to what we want to build. Fortunately, it&rsquo;s not complicated to customize charts with Swift Charts. The hardest part for me was navigating through the framework API when the majority of the documentation is missing! Good thing the <a href="https://developer.apple.com/videos/play/wwdc2022/10137">WWDC video</a> got me through most of it.</p>
 <h3 id="annotations">Annotations</h3>
@@ -102,10 +113,10 @@ To get started, here&amp;rsquo;s what the chart currently looks like in WooComme
 </span></span></code></pre></div><p>And we&rsquo;re also hiding the y axis when there&rsquo;s no revenue in a chart. This can be handled with a single line using <code>chartYAxis</code> visibility modifier on the Chart:</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Swift" data-lang="Swift"><span style="display:flex;"><span>.chartYAxis(hasRevenue ? .visible : .hidden)
 </span></span></code></pre></div><p>And the result:</p>
-<p><img src="annotation.png" alt="Chart with annotation"></p>
+<p><img src="/posts/swift-charts/annotation.png" alt="Chart with annotation"></p>
 <h3 id="axis-customizations">Axis customizations</h3>
 <p>The labels on the axes of the new chart didn&rsquo;t match the current chart - the labels were too dense, and the formats weren&rsquo;t right for both the dates and revenues. At first, I came up with a simple solution: since we already had implementations to configure labels for the axes, maybe I can send them to the new chart instead? Here was the result:</p>
-<p><img src="string-values.jpeg" alt="Chart with string values"></p>
+<p><img src="/posts/swift-charts/string-values.jpeg" alt="Chart with string values"></p>
 <p>This looks so horribly incorrect! The revenues aren&rsquo;t displayed in the correct order, which makes the chart wrong. The reason was probably due to the data for the chart being <code>String</code>s, which is a nominal data type, making Swift infers the chart differently from quantitative and temporal types (numbers and dates). I had to revert this change and look for another solution.</p>
 <p>After watching the aforementioned WWDC video again, I learned that the axes can be configured with <code>AxisMarks</code> through <code>chartXAxis</code> and <code>chartYAxis</code> view modifiers on the Chart. The <code>AxisMarks</code> comes with a constructor that lets us define how to stride the data, and then define the content for each mark, which can be any or all of these: <code>[AxisTick](https://developer.apple.com/documentation/charts/axistick)</code>, <code>[AxisGridLine](https://developer.apple.com/documentation/charts/axisgridline)</code> and <code>[AxisValueLabel](https://developer.apple.com/documentation/charts/axisvaluelabel)</code>.</p>
 <p>For the x-axis, I want to display a limited number of dates and format the date to match the correct time range for the current tab. I set the stride for the dates, and then use only a label for each mark to match the current design:</p>
@@ -178,7 +189,7 @@ To get started, here&amp;rsquo;s what the chart currently looks like in WooComme
 </span></span><span style="display:flex;"><span>    }
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><p>And the result looks great:</p>
-<p><img src="customized-axes.png" alt="Chart with customized axes"></p>
+<p><img src="/posts/swift-charts/customized-axes.png" alt="Chart with customized axes"></p>
 <h3 id="interactions-with-gestures">Interactions with gestures</h3>
 <p>One last touch to the new chart that I want to add is the feature to highlight a selected date and its revenue when touching any part of the chart. I want to support both tap and drag gestures, and display a vertical line on the date closest to the touch location, while also sending a callback about the selected interval index to update the parent controller UI.</p>
 <p>This can be handled with the <code>chartOverlay</code> modifier together with a <code>GeometryReader</code> to find the position of the touch location on the screen and determine the value at that position using <code>ChartProxy</code>:</p>
@@ -226,7 +237,7 @@ To get started, here&amp;rsquo;s what the chart currently looks like in WooComme
 </span></span><span style="display:flex;"><span>    }
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><p>And the final result 🎉</p>
-<p><img src="final-chart.gif" alt="Final chart"></p>
+<p><img src="/posts/swift-charts/final-chart.gif" alt="Final chart"></p>
 <h2 id="further-improvements">Further improvements</h2>
 <p>The experiment was pretty successful, but there are still some points in my checklist that weren&rsquo;t covered:</p>
 <ul>
@@ -237,8 +248,8 @@ To get started, here&amp;rsquo;s what the chart currently looks like in WooComme
 <p>If you&rsquo;re interested in playing with this experiment, join me on the branch <a href="https://github.com/woocommerce/woocommerce-ios/tree/hackweek/swift-charts-dashboard">hackweek/swift-charts-dashboard</a>.</p>
 <h2 id="conclusion">Conclusion</h2>
 <p>I hope you enjoyed this experiment with Swift Charts! We are looking forward to integrating this framework, it was fun to learn how it works and the promising features that it offers. Let me know if you have any questions!</p>
-]]></content></item><item><title>Async Sequence instead of Combine?</title><link>/posts/async-sequence-combine/</link><pubDate>Tue, 14 Jun 2022 10:00:02 +0701</pubDate><guid>/posts/async-sequence-combine/</guid><description>Ever since WWDC 2021, I’ve seen folks getting excited about the introduction of Swift concurrency, a.k.a async/await. It’s very common to come across comments that async/await will soon replace Combine, due to its potential and friendliness.
-TL;DR: The motivation of this post is to discover the power of AsyncSequence when used with Async Algorithms, to see if we can use it in place of Combine. To be more specific, I’m curious to see if we can use it with SwiftUI to handle form validation – one of my favorite applications of Combine when working with SwiftUI.</description><content type="html"><![CDATA[<p>Ever since WWDC 2021, I’ve seen folks getting excited about the introduction of Swift concurrency, a.k.a async/await. It’s very common to come across comments that async/await will soon replace Combine, due to its potential and friendliness.</p>
+]]></content></item><item><title>Async Sequence instead of Combine?</title><link>/posts/async-sequence-combine/</link><pubDate>Tue, 14 Jun 2022 10:00:02 +0701</pubDate><guid>/posts/async-sequence-combine/</guid><description>&lt;p>Ever since WWDC 2021, I’ve seen folks getting excited about the introduction of Swift concurrency, a.k.a async/await. It’s very common to come across comments that async/await will soon replace Combine, due to its potential and friendliness.&lt;/p>
+&lt;p>&lt;strong>TL;DR&lt;/strong>: The motivation of this post is to discover the power of &lt;a href="https://href.li/?https://developer.apple.com/documentation/Swift/AsyncSequence">AsyncSequence&lt;/a> when used with &lt;a href="https://href.li/?https://github.com/apple/swift-async-algorithms">Async Algorithms&lt;/a>, to see if we can use it in place of Combine. To be more specific, I’m curious to see if we can use it with SwiftUI to handle form validation – one of my favorite applications of Combine when working with SwiftUI.&lt;/p></description><content type="html"><![CDATA[<p>Ever since WWDC 2021, I’ve seen folks getting excited about the introduction of Swift concurrency, a.k.a async/await. It’s very common to come across comments that async/await will soon replace Combine, due to its potential and friendliness.</p>
 <p><strong>TL;DR</strong>: The motivation of this post is to discover the power of <a href="https://href.li/?https://developer.apple.com/documentation/Swift/AsyncSequence">AsyncSequence</a> when used with <a href="https://href.li/?https://github.com/apple/swift-async-algorithms">Async Algorithms</a>, to see if we can use it in place of Combine. To be more specific, I’m curious to see if we can use it with SwiftUI to handle form validation – one of my favorite applications of Combine when working with SwiftUI.</p>
 <p>The short answer is: <strong>Yes!</strong> 🎉</p>
 <h2 id="bridging-from-combine-to-asyncsequence">Bridging from Combine to AsyncSequence</h2>
@@ -294,7 +305,7 @@ TL;DR: The motivation of this post is to discover the power of AsyncSequence whe
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><p>In this case, we can actually <code>await</code> on the <code>combineLatest</code> of the 3 groups, but I wanted to try out the <code>map</code> function on the sequence. Since what we have here is an async sequence, we have to capture <code>self</code> and the guard let dance is here again. <code>removeDuplicates</code> is another addition from <code>AsyncAlgorithms</code> – which is very helpful as well.</p>
 <p>One thing to note though – <code>AsyncAlgorithms</code> is still a work in progress, so not everything is ready for use yet for now. I tried playing with <code>debounce</code> and it seems that it’s not ready yet 😅:</p>
-<p><img src="async-algo-debounce.jpeg" alt="AsyncAlgorithms Debounce not available"></p>
+<p><img src="/posts/async-sequence-combine/async-algo-debounce.jpeg" alt="AsyncAlgorithms Debounce not available"></p>
 <h2 id="the-verdict">The verdict</h2>
 <p>As you can see from my very brief experiments, it is possible to validate forms reactively without Combine if you really need to. I’ll leave you all to judge whether it is worth it – but I’ll subtly insert my opinion here that using Combine is a more straightforward solution when working with SwiftUI. My opinion can however go obsolete if Apple decides to add async/await support for state observation in SwiftUI in the next WWDC 😁.</p>
 <p>Async Algorithms, however, is a really promising library if we wish to work with reactive pardigm within the context of Swift concurrency. In other words, we should consider integrating it when migrating away from Combine while keeping the reactive logic in your code. As said earlier, the library is still in beta, so we’ll need to wait until it’s mature enough, unless we want to be adventurous.</p>
@@ -308,9 +319,23 @@ TL;DR: The motivation of this post is to discover the power of AsyncSequence whe
 <li><a href="https://href.li/?https://www.donnywals.com/comparing-use-cases-for-async-sequences-and-publishers/">Comparing use cases for async sequences and publishers</a></li>
 <li><a href="https://href.li/?https://developer.apple.com/wwdc22/sessions/">Meet Swift Async Algorithms</a></li>
 </ul>
-]]></content></item><item><title>Releasing Peachy 🍑</title><link>/posts/peachy/</link><pubDate>Sun, 20 Mar 2022 10:00:02 +0701</pubDate><guid>/posts/peachy/</guid><description>I&amp;rsquo;m happy to announce that Peachy is finally out in the wild! 🎉
-Peachy is a Mac app for entering Kaomojis easily. This was inspired by Rocket and suggested/encouraged/challenged by a friend. I took this as an opportunity to get my feet wet with Mac app development, and it was a wholesome experience with a lot of challenges:
-Integration of SwiftUI and AppKit. SwiftUI is nice for creating simple views, but for complex customizations, AppKit is the solution.</description><content type="html"><![CDATA[<p><img src="demo.gif" alt="Peachy Demo"></p>
+]]></content></item><item><title>Releasing Peachy 🍑</title><link>/posts/peachy/</link><pubDate>Sun, 20 Mar 2022 10:00:02 +0701</pubDate><guid>/posts/peachy/</guid><description>&lt;p>&lt;img src="/posts/peachy/demo.gif" alt="Peachy Demo">&lt;/p>
+&lt;p>I&amp;rsquo;m happy to announce that &lt;a href="https://itsmeichigo.io/peachy/">Peachy&lt;/a> is finally out in the wild! 🎉&lt;/p>
+&lt;p>Peachy is a Mac app for entering Kaomojis easily. This was inspired by &lt;a href="https://matthewpalmer.net/rocket/">Rocket&lt;/a> and suggested/encouraged/challenged by a friend. I took this as an opportunity to get my feet wet with Mac app development, and it was a wholesome experience with a lot of challenges:&lt;/p>
+&lt;ul>
+&lt;li>Integration of SwiftUI and AppKit. SwiftUI is nice for creating simple views, but for complex customizations, AppKit is the solution. It was painful, but I did learn a lot.&lt;/li>
+&lt;li>Integration of the Accessibility API and learning AppleScript.&lt;/li>
+&lt;li>A lot of workarounds!&lt;/li>
+&lt;li>Since Accessibility API doesn&amp;rsquo;t work with Sandbox, the app cannot be shipped in the App Store. This came with another bunch of challenges:
+&lt;ul>
+&lt;li>Creating and notarizing the DMG for the app.&lt;/li>
+&lt;li>Hosting the app manually.&lt;/li>
+&lt;li>Building a landing page to introduce the app.&lt;/li>
+&lt;li>Managing app versions with &lt;a href="https://sparkle-project.org">Sparkle&lt;/a>.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;p>More excitingly, Peachy is FREE and &lt;a href="https://github.com/itsmeichigo/peachy">opensource&lt;/a>! If you like Peachy, please feel free to &lt;a href="https://www.buymeacoffee.com/itsmeichigo">buy me a cocktail&lt;/a>. Cheers! 🍸&lt;/p></description><content type="html"><![CDATA[<p><img src="/posts/peachy/demo.gif" alt="Peachy Demo"></p>
 <p>I&rsquo;m happy to announce that <a href="https://itsmeichigo.io/peachy/">Peachy</a> is finally out in the wild! 🎉</p>
 <p>Peachy is a Mac app for entering Kaomojis easily. This was inspired by <a href="https://matthewpalmer.net/rocket/">Rocket</a> and suggested/encouraged/challenged by a friend. I took this as an opportunity to get my feet wet with Mac app development, and it was a wholesome experience with a lot of challenges:</p>
 <ul>
@@ -327,8 +352,25 @@ Integration of SwiftUI and AppKit. SwiftUI is nice for creating simple views, bu
 </li>
 </ul>
 <p>More excitingly, Peachy is FREE and <a href="https://github.com/itsmeichigo/peachy">opensource</a>! If you like Peachy, please feel free to <a href="https://www.buymeacoffee.com/itsmeichigo">buy me a cocktail</a>. Cheers! 🍸</p>
-]]></content></item><item><title>Working with observable objects in SwiftUI</title><link>/posts/swiftui-observable-objects/</link><pubDate>Sat, 11 Sep 2021 10:00:02 +0701</pubDate><guid>/posts/swiftui-observable-objects/</guid><description>Earlier this week I learned about @StateObject initializer when reviewing a pull request. The idea was to create a view model for a SwiftUI view using some injected parameter and keep the view model as a @StateObject so that the its state is persisted when the view is redrawn. The view creates the @StateObject like so:
-class ItemViewModel: ObservableObject { @Published var itemName: String init(item: Item) { self.itemName = item.name } } struct ItemView: View { @StateObject private var viewModel: ItemViewModel init(item: Item) { _viewModel = StateObject(wrappedValue: ItemViewModel(item: item)) } var body: some View { TextField(&amp;#34;Item Name&amp;#34;, text: viewModel.</description><content type="html"><![CDATA[<p>Earlier this week I learned about <code>@StateObject</code> <a href="https://developer.apple.com/documentation/swiftui/stateobject/init(wrappedvalue:)">initializer</a> when reviewing a pull request. The idea was to create a view model for a SwiftUI view using some injected parameter and keep the view model as a <code>@StateObject</code> so that the its state is persisted when the view is redrawn. The view creates the <code>@StateObject</code> like so:</p>
+]]></content></item><item><title>Working with observable objects in SwiftUI</title><link>/posts/swiftui-observable-objects/</link><pubDate>Sat, 11 Sep 2021 10:00:02 +0701</pubDate><guid>/posts/swiftui-observable-objects/</guid><description>&lt;p>Earlier this week I learned about &lt;code>@StateObject&lt;/code> &lt;a href="https://developer.apple.com/documentation/swiftui/stateobject/init%28wrappedvalue:%29">initializer&lt;/a> when reviewing a pull request. The idea was to create a view model for a SwiftUI view using some injected parameter and keep the view model as a &lt;code>@StateObject&lt;/code> so that the its state is persisted when the view is redrawn. The view creates the &lt;code>@StateObject&lt;/code> like so:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-swift" data-lang="swift">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">class&lt;/span> &lt;span style="color:#a6e22e">ItemViewModel&lt;/span>: ObservableObject {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> @Published &lt;span style="color:#66d9ef">var&lt;/span> itemName: String
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">init&lt;/span>(item: Item) {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">self&lt;/span>.itemName = item.name
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> }
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">struct&lt;/span> &lt;span style="color:#a6e22e">ItemView&lt;/span>: View {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> @StateObject &lt;span style="color:#66d9ef">private&lt;/span> &lt;span style="color:#66d9ef">var&lt;/span> viewModel: ItemViewModel
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">init&lt;/span>(item: Item) {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> _viewModel = StateObject(wrappedValue: ItemViewModel(item: item))
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> }
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">var&lt;/span> body: some View {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> TextField(&lt;span style="color:#e6db74">&amp;#34;Item Name&amp;#34;&lt;/span>, text: viewModel.&lt;span style="color:#960050;background-color:#1e0010">$&lt;/span>itemName)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> }
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>The problem with this initializer is that it&amp;rsquo;s not meant to be used directly. As Apple documentation says it:&lt;/p></description><content type="html"><![CDATA[<p>Earlier this week I learned about <code>@StateObject</code> <a href="https://developer.apple.com/documentation/swiftui/stateobject/init%28wrappedvalue:%29">initializer</a> when reviewing a pull request. The idea was to create a view model for a SwiftUI view using some injected parameter and keep the view model as a <code>@StateObject</code> so that the its state is persisted when the view is redrawn. The view creates the <code>@StateObject</code> like so:</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-swift" data-lang="swift"><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">ItemViewModel</span>: ObservableObject {
 </span></span><span style="display:flex;"><span>    @Published <span style="color:#66d9ef">var</span> itemName: String
 </span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">init</span>(item: Item) {
@@ -348,8 +390,7 @@ class ItemViewModel: ObservableObject { @Published var itemName: String init(ite
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><p>The problem with this initializer is that it&rsquo;s not meant to be used directly. As Apple documentation says it:</p>
 <blockquote>
-<p>You don’t call this initializer directly. Instead, declare a property with the <code>@StateObject</code> attribute in a <a href="https://developer.apple.com/documentation/swiftui/view"><code>View</code></a>, <a href="https://developer.apple.com/documentation/swiftui/app"><code>App</code></a>, or <a href="https://developer.apple.com/documentation/swiftui/scene"><code>Scene</code></a>, and provide an initial value</p>
-</blockquote>
+<p>You don’t call this initializer directly. Instead, declare a property with the <code>@StateObject</code> attribute in a <a href="https://developer.apple.com/documentation/swiftui/view"><code>View</code></a>, <a href="https://developer.apple.com/documentation/swiftui/app"><code>App</code></a>, or <a href="https://developer.apple.com/documentation/swiftui/scene"><code>Scene</code></a>, and provide an initial value</p></blockquote>
 <p>More interestingly, <a href="https://swiftui-lab.com/random-lessons/#data-10">an answer</a> on the WWDC21&rsquo;s SwiftUI Lab confirms that this is an acceptable use. I&rsquo;m not quite happy with this answer though, because it&rsquo;s not cool to go against the recommended use. So we can fix this by injecting the view model from outside, right?</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-swift" data-lang="swift"><span style="display:flex;"><span><span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">ItemView</span>: View {
 </span></span><span style="display:flex;"><span>    @StateObject <span style="color:#66d9ef">var</span> viewModel: ItemViewModel
@@ -416,8 +457,8 @@ class ItemViewModel: ObservableObject { @Published var itemName: String init(ite
 <li><a href="https://www.donnywals.com/whats-the-difference-between-stateobject-and-observedobject/">What&rsquo;s the difference between @StateObject and @ObservedObject?</a></li>
 <li><a href="https://sarunw.com/posts/how-to-initialize-stateobject-with-parameters-in-swiftui/">How to initialize @StateObject with parameters in SwiftUI</a></li>
 </ul>
-]]></content></item><item><title>Breaking down large pull requests</title><link>/posts/breaking-down-pull-requests/</link><pubDate>Tue, 13 Jul 2021 17:02:02 +0700</pubDate><guid>/posts/breaking-down-pull-requests/</guid><description>This post was originally posted in WooCommerce Mobile Project P2 page. I figure this can be useful for other fellow developers as well so this is my public version of the post.
-Usually we have several teams working on different features, and we break down tasks into bite-size ones – so large PRs aren’t really a problem. However, for folks working alone on a backlog story, or joining the team for General Maintenance Rotation, and especially Trialmatticians – it’s common to face the issue of handling a big task and having to break them down into smaller parts.</description><content type="html"><![CDATA[<p><em>This post was originally posted in WooCommerce Mobile Project <a href="https://wordpress.com/p2/">P2</a> page. I figure this can be useful for other fellow developers as well so this is my public version of the post.</em></p>
+]]></content></item><item><title>Breaking down large pull requests</title><link>/posts/breaking-down-pull-requests/</link><pubDate>Tue, 13 Jul 2021 17:02:02 +0700</pubDate><guid>/posts/breaking-down-pull-requests/</guid><description>&lt;p>&lt;em>This post was originally posted in WooCommerce Mobile Project &lt;a href="https://wordpress.com/p2/">P2&lt;/a> page. I figure this can be useful for other fellow developers as well so this is my public version of the post.&lt;/em>&lt;/p>
+&lt;p>Usually we have several teams working on different features, and we break down tasks into bite-size ones – so large PRs aren’t really a problem. However, for folks working alone on a backlog story, or joining the team for General Maintenance Rotation, and especially Trialmatticians – it’s common to face the issue of handling a big task and having to break them down into smaller parts. So what are the best practices for this situation?&lt;/p></description><content type="html"><![CDATA[<p><em>This post was originally posted in WooCommerce Mobile Project <a href="https://wordpress.com/p2/">P2</a> page. I figure this can be useful for other fellow developers as well so this is my public version of the post.</em></p>
 <p>Usually we have several teams working on different features, and we break down tasks into bite-size ones – so large PRs aren’t really a problem. However, for folks working alone on a backlog story, or joining the team for General Maintenance Rotation, and especially Trialmatticians – it’s common to face the issue of handling a big task and having to break them down into smaller parts. So what are the best practices for this situation?</p>
 <h2 id="feature-branch-yay-or-nay">Feature Branch: Yay or Nay?</h2>
 <p>In my previous gig, we had around 10 teams working on the same mono-repo project, so we maintained feature branches for each team. My take on this approach:</p>
@@ -434,7 +475,7 @@ Usually we have several teams working on different features, and we break down t
 <li>It can be a good practice to tag your dependent PRs as <code>do not merge</code>, to make sure that they are not accidentally merged before their parent PR. Some may prefer to keep the dependent PRs as drafts instead. I myself prefer the former – just so my teammates can review all PRs as soon as they can (like concurrency in programming 😂).</li>
 </ul>
 <p>In the end, if you have a number of pull requests depending on one another, you should have a chain like this:
-<img src="PRs.png" alt="Dependend Pull Requests"></p>
+<img src="/posts/breaking-down-pull-requests/PRs.png" alt="Dependend Pull Requests"></p>
 <p>In my case, I was not sure if my PRs could get merged before code freeze, so during the development phase I kept the flag on only for local development (and off for both beta testing and production). You can consider keeping your flag off on local too if it can block other teammates when they need to run the old feature. Just make sure to include instructions to turn the flag on in the testing steps of your PR.</p>
 <h2 id="final-thoughts">Final thoughts</h2>
 <p>In conclusion, I want to highlight the 3 main takeaways of this post:</p>
@@ -445,12 +486,25 @@ Usually we have several teams working on different features, and we break down t
 </ul>
 <p>I hope this post is helpful for other developers to when working with pull requests. If you have more suggestions for best practices of pull requests, do reach out to me via <a href="https://twitter.com/itsmeichigo">Twitter</a>!</p>
 <p>Until next time 👋</p>
-]]></content></item><item><title>Releasing Fretboard 🎸</title><link>/posts/fretboard/</link><pubDate>Sat, 30 Jan 2021 10:00:02 +0701</pubDate><guid>/posts/fretboard/</guid><description>Fretboard is a weekend project to display guitar and ukulele chords using SwiftUI.
-Features:
-🎵 Chord positions 🌗 Light / Dark modes 🎸 Guitar &amp;amp; ukulele chords with basic tunings ⏳ More to come. Installation Swift Package Manager Add https://github.com/itsmeichigo/Fretboard.git as the source and you&amp;rsquo;re good to go.
-Manual install Copy contents from Sources folder to your project.
-Usage Get your desired instruments:
-let guitar = Instrument.guitar let ukulele = Instrument.</description><content type="html"><![CDATA[<p><img src="logo.png" alt="Fretboard Logo"></p>
+]]></content></item><item><title>Releasing Fretboard 🎸</title><link>/posts/fretboard/</link><pubDate>Sat, 30 Jan 2021 10:00:02 +0701</pubDate><guid>/posts/fretboard/</guid><description>&lt;p>&lt;img src="/posts/fretboard/logo.png" alt="Fretboard Logo">&lt;/p>
+&lt;p>&lt;a href="https://github.com/itsmeichigo/Fretboard">Fretboard&lt;/a> is a weekend project to display guitar and ukulele chords using SwiftUI.&lt;/p>
+&lt;p>Features:&lt;/p>
+&lt;ul>
+&lt;li>🎵 Chord positions&lt;/li>
+&lt;li>🌗 Light / Dark modes&lt;/li>
+&lt;li>🎸 Guitar &amp;amp; ukulele chords with basic tunings&lt;/li>
+&lt;li>⏳ More to come.&lt;/li>
+&lt;/ul>
+&lt;h2 id="installation">Installation&lt;/h2>
+&lt;h4 id="swift-package-manager">Swift Package Manager&lt;/h4>
+&lt;p>Add &lt;a href="https://github.com/itsmeichigo/Fretboard.git">https://github.com/itsmeichigo/Fretboard.git&lt;/a> as the source and you&amp;rsquo;re good to go.&lt;/p>
+&lt;h4 id="manual-install">Manual install&lt;/h4>
+&lt;p>Copy contents from Sources folder to your project.&lt;/p>
+&lt;h2 id="usage">Usage&lt;/h2>
+&lt;p>Get your desired instruments:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-Swift" data-lang="Swift">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">let&lt;/span> guitar = Instrument.guitar
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">let&lt;/span> ukulele = Instrument.ukulele
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>Each instrument comes with their own name, keys, suffixes and chords. Get a list of positions for a chord using key and suffix:&lt;/p></description><content type="html"><![CDATA[<p><img src="/posts/fretboard/logo.png" alt="Fretboard Logo"></p>
 <p><a href="https://github.com/itsmeichigo/Fretboard">Fretboard</a> is a weekend project to display guitar and ukulele chords using SwiftUI.</p>
 <p>Features:</p>
 <ul>
@@ -475,14 +529,13 @@ let guitar = Instrument.guitar let ukulele = Instrument.</description><content t
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Swift" data-lang="Swift"><span style="display:flex;"><span>FretboardView(position: dAug9Position)
 </span></span><span style="display:flex;"><span>    .frame(width: <span style="color:#ae81ff">100</span>, height: <span style="color:#ae81ff">200</span>)
 </span></span></code></pre></div><h2 id="demo-app">Demo app</h2>
-<p><img src="screenshot.png" alt="screenshot"></p>
-]]></content></item><item><title>Combine from RxSwift - Highlights for smooth adaption</title><link>/posts/combine-from-rxswift/</link><pubDate>Wed, 16 Dec 2020 21:23:02 +0700</pubDate><guid>/posts/combine-from-rxswift/</guid><description>RxSwift has been around since 2015 and widely known among Apple developer community as an efficient open-sourced FRP library. In WWDC 2019 Apple introduced their very own FRP framework, making it possible to utilize the paradigm natively with declarative Swift API. The two frameworks share quite a few similarities in terms of principles and usage, so it can be not too daunting to get your feet wet with Combine if you have already been using RxSwift in your projects.</description><content type="html"><![CDATA[<p>RxSwift has been around since 2015 and widely known among Apple developer community as an efficient open-sourced FRP library. In WWDC 2019 Apple introduced their very own FRP framework, making it possible to utilize the paradigm natively with declarative Swift API. The two frameworks share quite a few similarities in terms of principles and usage, so it can be not too daunting to get your feet wet with Combine if you have already been using RxSwift in your projects.</p>
+<p><img src="/posts/fretboard/screenshot.png" alt="screenshot"></p>
+]]></content></item><item><title>Combine from RxSwift - Highlights for smooth adaption</title><link>/posts/combine-from-rxswift/</link><pubDate>Wed, 16 Dec 2020 21:23:02 +0700</pubDate><guid>/posts/combine-from-rxswift/</guid><description>&lt;p>RxSwift has been around since 2015 and widely known among Apple developer community as an efficient open-sourced FRP library. In WWDC 2019 Apple introduced their very own FRP framework, making it possible to utilize the paradigm natively with declarative Swift API. The two frameworks share quite a few similarities in terms of principles and usage, so it can be not too daunting to get your feet wet with Combine if you have already been using RxSwift in your projects.&lt;/p></description><content type="html"><![CDATA[<p>RxSwift has been around since 2015 and widely known among Apple developer community as an efficient open-sourced FRP library. In WWDC 2019 Apple introduced their very own FRP framework, making it possible to utilize the paradigm natively with declarative Swift API. The two frameworks share quite a few similarities in terms of principles and usage, so it can be not too daunting to get your feet wet with Combine if you have already been using RxSwift in your projects.</p>
 <p>If you search around the topic, it’s easy to find a <a href="https://medium.com/gett-engineering/rxswift-to-apples-combine-cheat-sheet-e9ce32b14c5b">cheatsheet</a> for migrating from RxSwift to Combine summed up by <a href="https://twitter.com/freak4pc">Shai Mishali</a> which is helpful to have a good overview comparision between the two frameworks. In this article I would like to highlight some interesting points about Combine from the viewpoint of a developer who has been working with RxSwift for more than two years.</p>
 <h2 id="publishers--subscribers">Publishers &amp; Subscribers</h2>
 <p>These two are the equivalents of Observables and Observers in RxSwift. Together they make up the core components of Combine. As Apple put it:</p>
 <blockquote>
-<p>Combine declares publishers to expose values that can change over time, and subscribers to receive those values from the publishers.</p>
-</blockquote>
+<p>Combine declares publishers to expose values that can change over time, and subscribers to receive those values from the publishers.</p></blockquote>
 <p>The great thing about using the native FRP framework is that it has been integrated into other Apple’s frameworks, making the migration process easier. Foundation framework has supported the use of Combine in some of its APIs, like <code>URLSession</code> in the following example:</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-swift" data-lang="swift"><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">RepoListViewModel</span> {
 </span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">var</span> cancellable: AnyCancellable?
@@ -686,7 +739,7 @@ let guitar = Instrument.guitar let ukulele = Instrument.</description><content t
 <li><code>receive(completion:)</code>: Informs the subscriber that publishing has ended, either normally or with an error.</li>
 </ul>
 <p>The specification of demands makes sure that the subscription sends just enough items as requested by the subscriber and no more. Below is an illustration for a <code>Sink</code> subscriber to visualize the relationship and clarify the explanations a little further (apologies for my poor drawing skills 🙂):</p>
-<p><img src="combine-carbon.png" alt="Illustration"></p>
+<p><img src="/posts/combine-from-rxswift/combine-carbon.png" alt="Illustration"></p>
 <p>Backpressure is an advanced topic and as Apple keeps their implementations of publishers and subscribers private, the complexity of this management is hidden from developers. Understanding the principle of backpressure makes customization for publishers and subscribers possible. One particular use case for this is <a href="https://github.com/CombineCommunity/CombineCocoa">CombineCocoa by CombineCommunity</a>, which makes integration of Combine when using UIControls much more convenient. However, Apple strongly encourages that developers use the built-in convenience publishers and subjects instead of implementing custom ones, so it is important to look for simple solutions before tempting to overengineer to avoid bringing complexity and potential bugs to your projects.</p>
 <h2 id="epilogue">Epilogue</h2>
 <p>Since Combine only supports iOS 13 onwards, it may be a bit early for most of current projects to adopt. Nevertheless, it’s never too soon to learn new tech and start experimenting with it to get yourself comfortable and “relevant”. The framework itself is still under development and improvement, so don’t forget to check back in future WWDCs for any cool new updates. I hope this article inspires you to dive deeper and learn more about Combine. I would like to give my thanks to <a href="https://twitter.com/DonnyWals">Donny Wals</a> for his book <a href="https://gumroad.com/donnywals#XVbKP">Practical Combine</a>, as well as all the resources listed in the References section for making this article possible. In the meantime, you can also check out <a href="https://github.com/CombineCommunity/RxCombine">RxCombine</a> to discover the possiblities of bridging between the two frameworks. Have fun!</p>
@@ -696,8 +749,9 @@ let guitar = Instrument.guitar let ukulele = Instrument.</description><content t
 <p><a href="https://github.com/CombineCommunity/rxswift-to-combine-cheatsheet">CombineCommunity/rxswift-to-combine-cheatsheet</a></p>
 <p><a href="https://heckj.github.io/swiftui-notes/">Using Combine</a></p>
 <p><a href="https://www.apeth.com/UnderstandingCombine/">Understanding Combine</a></p>
-]]></content></item><item><title>Learning SwiftUI by Building a Slack-like Emoji Picker</title><link>/posts/swiftui-happy-panel/</link><pubDate>Wed, 02 Sep 2020 21:23:02 +0701</pubDate><guid>/posts/swiftui-happy-panel/</guid><description>I started learning SwiftUI around August 2020 first with Apple&amp;rsquo;s SwiftUI Tutorials. The tutorials were really fun and got me excited with using SwiftUI. I then continued with Paul Hudson&amp;rsquo;s series 100 Days of SwiftUI. Around the end of series, I could not hesitate any longer so I started a new Xcode project and build one of the things I like most about Slack app: the emoji picker!
-The point of the Happy Panel project was to learn SwiftUI and make use of its declarative syntax to build a complicated control with gestures and animations in a few lines of code.</description><content type="html"><![CDATA[<p>I started learning SwiftUI around August 2020 first with <a href="https://developer.apple.com/tutorials/SwiftUI">Apple&rsquo;s SwiftUI Tutorials</a>. The tutorials were really fun and got me excited with using SwiftUI. I then continued with Paul Hudson&rsquo;s series <a href="https://www.hackingwithswift.com/100/swiftui">100 Days of SwiftUI</a>. Around the end of series, I could not hesitate any longer so I started a new Xcode project and build one of the things I like most about Slack app: the emoji picker!</p>
+]]></content></item><item><title>Learning SwiftUI by Building a Slack-like Emoji Picker</title><link>/posts/swiftui-happy-panel/</link><pubDate>Wed, 02 Sep 2020 21:23:02 +0701</pubDate><guid>/posts/swiftui-happy-panel/</guid><description>&lt;p>I started learning SwiftUI around August 2020 first with &lt;a href="https://developer.apple.com/tutorials/SwiftUI">Apple&amp;rsquo;s SwiftUI Tutorials&lt;/a>. The tutorials were really fun and got me excited with using SwiftUI. I then continued with Paul Hudson&amp;rsquo;s series &lt;a href="https://www.hackingwithswift.com/100/swiftui">100 Days of SwiftUI&lt;/a>. Around the end of series, I could not hesitate any longer so I started a new Xcode project and build one of the things I like most about Slack app: the emoji picker!&lt;/p>
+&lt;p>&lt;img src="https://github.com/itsmeichigo/HappyPanel/blob/master/screenshot.png?raw=true" alt="Happy Panel">&lt;/p>
+&lt;p>The point of the &lt;a href="https://github.com/itsmeichigo/HappyPanel">Happy Panel project&lt;/a> was to learn SwiftUI and make use of its declarative syntax to build a complicated control with gestures and animations in a few lines of code. Because the biggest motivation for me to learn something new is to be able to make something beautiful and performant.&lt;/p></description><content type="html"><![CDATA[<p>I started learning SwiftUI around August 2020 first with <a href="https://developer.apple.com/tutorials/SwiftUI">Apple&rsquo;s SwiftUI Tutorials</a>. The tutorials were really fun and got me excited with using SwiftUI. I then continued with Paul Hudson&rsquo;s series <a href="https://www.hackingwithswift.com/100/swiftui">100 Days of SwiftUI</a>. Around the end of series, I could not hesitate any longer so I started a new Xcode project and build one of the things I like most about Slack app: the emoji picker!</p>
 <p><img src="https://github.com/itsmeichigo/HappyPanel/blob/master/screenshot.png?raw=true" alt="Happy Panel"></p>
 <p>The point of the <a href="https://github.com/itsmeichigo/HappyPanel">Happy Panel project</a> was to learn SwiftUI and make use of its declarative syntax to build a complicated control with gestures and animations in a few lines of code. Because the biggest motivation for me to learn something new is to be able to make something beautiful and performant.</p>
 <p>Below is how I tried to solve the problem - more like a note on what I learned.</p>
