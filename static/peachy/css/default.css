@@ -3315,7 +3315,7 @@ input[type="button"].btn-block {
       flex-direction: column;
   min-width: 0;
   word-wrap: break-word;
-  background-color: #263238;
+  background-color: #444545;
   background-clip: border-box;
   border: 0px solid rgba(0, 0, 0, 0.125);
   border-radius: 0.3rem; }
@@ -7609,7 +7609,7 @@ body {
   background-color: #1E2025;
   background-image: linear-gradient(to top, #3b41c5 0%, #a981bb 49%, #ffc8a9 100%); }
 
-.bg-opensource {
+.bg-pro {
   background-color: #1E2025;
   background-image: linear-gradient(to top, #5f72bd 0%, #9b23ea 100%); }
 
@@ -7654,7 +7654,8 @@ body {
     padding: 2.25rem 2rem; }
   .pricing-table .card.active {
     color: white;
-    background-color: transparent; }
+    background-color: transparent;
+    border: 2px solid #FFFFFF; }
     .pricing-table .card.active h2, .pricing-table .card.active h3 {
       color: #ffffff; }
 
