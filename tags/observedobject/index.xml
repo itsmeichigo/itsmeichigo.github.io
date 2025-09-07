@@ -1,19 +1,19 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Observedobject on Huong Do</title><link>/tags/observedobject/</link><description>Recent content in Observedobject on Huong Do</description><generator>Hugo</generator><language>en</language><copyright>Huong Do</copyright><lastBuildDate>Sat, 11 Sep 2021 10:00:02 +0701</lastBuildDate><atom:link href="/tags/observedobject/index.xml" rel="self" type="application/rss+xml"/><item><title>Working with observable objects in SwiftUI</title><link>/posts/swiftui-observable-objects/</link><pubDate>Sat, 11 Sep 2021 10:00:02 +0701</pubDate><guid>/posts/swiftui-observable-objects/</guid><description>&lt;p>Earlier this week I learned about &lt;code>@StateObject&lt;/code> &lt;a href="https://developer.apple.com/documentation/swiftui/stateobject/init%28wrappedvalue:%29">initializer&lt;/a> when reviewing a pull request. The idea was to create a view model for a SwiftUI view using some injected parameter and keep the view model as a &lt;code>@StateObject&lt;/code> so that the its state is persisted when the view is redrawn. The view creates the &lt;code>@StateObject&lt;/code> like so:&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-swift" data-lang="swift">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">class&lt;/span> &lt;span style="color:#a6e22e">ItemViewModel&lt;/span>: ObservableObject {
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> @Published &lt;span style="color:#66d9ef">var&lt;/span> itemName: String
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">init&lt;/span>(item: Item) {
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">self&lt;/span>.itemName = item.name
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> }
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">struct&lt;/span> &lt;span style="color:#a6e22e">ItemView&lt;/span>: View {
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> @StateObject &lt;span style="color:#66d9ef">private&lt;/span> &lt;span style="color:#66d9ef">var&lt;/span> viewModel: ItemViewModel
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">init&lt;/span>(item: Item) {
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> _viewModel = StateObject(wrappedValue: ItemViewModel(item: item))
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> }
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">var&lt;/span> body: some View {
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> TextField(&lt;span style="color:#e6db74">&amp;#34;Item Name&amp;#34;&lt;/span>, text: viewModel.&lt;span style="color:#960050;background-color:#1e0010">$&lt;/span>itemName)
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> }
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>The problem with this initializer is that it&amp;rsquo;s not meant to be used directly. As Apple documentation says it:&lt;/p></description></item></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Observedobject on Huong Do</title><link>/tags/observedobject/</link><description>Recent content in Observedobject on Huong Do</description><generator>Hugo</generator><language>en</language><copyright>Huong Do</copyright><lastBuildDate>Sat, 11 Sep 2021 10:00:02 +0701</lastBuildDate><atom:link href="/tags/observedobject/index.xml" rel="self" type="application/rss+xml"/><item><title>Working with observable objects in SwiftUI</title><link>/posts/swiftui-observable-objects/</link><pubDate>Sat, 11 Sep 2021 10:00:02 +0701</pubDate><guid>/posts/swiftui-observable-objects/</guid><description>&lt;p&gt;Earlier this week I learned about &lt;code&gt;@StateObject&lt;/code&gt; &lt;a href="https://developer.apple.com/documentation/swiftui/stateobject/init%28wrappedvalue:%29"&gt;initializer&lt;/a&gt; when reviewing a pull request. The idea was to create a view model for a SwiftUI view using some injected parameter and keep the view model as a &lt;code&gt;@StateObject&lt;/code&gt; so that the its state is persisted when the view is redrawn. The view creates the &lt;code&gt;@StateObject&lt;/code&gt; like so:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"&gt;&lt;code class="language-swift" data-lang="swift"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#66d9ef"&gt;class&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;ItemViewModel&lt;/span&gt;: ObservableObject {
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; @Published &lt;span style="color:#66d9ef"&gt;var&lt;/span&gt; itemName: String
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;init&lt;/span&gt;(item: Item) {
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;self&lt;/span&gt;.itemName = item.name
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; }
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#66d9ef"&gt;struct&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;ItemView&lt;/span&gt;: View {
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; @StateObject &lt;span style="color:#66d9ef"&gt;private&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;var&lt;/span&gt; viewModel: ItemViewModel
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;init&lt;/span&gt;(item: Item) {
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; _viewModel = StateObject(wrappedValue: ItemViewModel(item: item))
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; }
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;var&lt;/span&gt; body: some View {
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; TextField(&lt;span style="color:#e6db74"&gt;&amp;#34;Item Name&amp;#34;&lt;/span&gt;, text: viewModel.&lt;span style="color:#960050;background-color:#1e0010"&gt;$&lt;/span&gt;itemName)
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; }
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;The problem with this initializer is that it&amp;rsquo;s not meant to be used directly. As Apple documentation says it:&lt;/p&gt;</description></item></channel></rss>

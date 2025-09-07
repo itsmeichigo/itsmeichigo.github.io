@@ -1,17 +1,17 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Kaomoji on Huong Do</title><link>/tags/kaomoji/</link><description>Recent content in Kaomoji on Huong Do</description><generator>Hugo</generator><language>en</language><copyright>Huong Do</copyright><lastBuildDate>Sun, 20 Mar 2022 10:00:02 +0701</lastBuildDate><atom:link href="/tags/kaomoji/index.xml" rel="self" type="application/rss+xml"/><item><title>Releasing Peachy 🍑</title><link>/posts/peachy/</link><pubDate>Sun, 20 Mar 2022 10:00:02 +0701</pubDate><guid>/posts/peachy/</guid><description>&lt;p>&lt;img src="/posts/peachy/demo.gif" alt="Peachy Demo">&lt;/p>
-&lt;p>I&amp;rsquo;m happy to announce that &lt;a href="https://itsmeichigo.io/peachy/">Peachy&lt;/a> is finally out in the wild! 🎉&lt;/p>
-&lt;p>Peachy is a Mac app for entering Kaomojis easily. This was inspired by &lt;a href="https://matthewpalmer.net/rocket/">Rocket&lt;/a> and suggested/encouraged/challenged by a friend. I took this as an opportunity to get my feet wet with Mac app development, and it was a wholesome experience with a lot of challenges:&lt;/p>
-&lt;ul>
-&lt;li>Integration of SwiftUI and AppKit. SwiftUI is nice for creating simple views, but for complex customizations, AppKit is the solution. It was painful, but I did learn a lot.&lt;/li>
-&lt;li>Integration of the Accessibility API and learning AppleScript.&lt;/li>
-&lt;li>A lot of workarounds!&lt;/li>
-&lt;li>Since Accessibility API doesn&amp;rsquo;t work with Sandbox, the app cannot be shipped in the App Store. This came with another bunch of challenges:
-&lt;ul>
-&lt;li>Creating and notarizing the DMG for the app.&lt;/li>
-&lt;li>Hosting the app manually.&lt;/li>
-&lt;li>Building a landing page to introduce the app.&lt;/li>
-&lt;li>Managing app versions with &lt;a href="https://sparkle-project.org">Sparkle&lt;/a>.&lt;/li>
-&lt;/ul>
-&lt;/li>
-&lt;/ul>
-&lt;p>More excitingly, Peachy is FREE and &lt;a href="https://github.com/itsmeichigo/peachy">opensource&lt;/a>! If you like Peachy, please feel free to &lt;a href="https://www.buymeacoffee.com/itsmeichigo">buy me a cocktail&lt;/a>. Cheers! 🍸&lt;/p></description></item></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Kaomoji on Huong Do</title><link>/tags/kaomoji/</link><description>Recent content in Kaomoji on Huong Do</description><generator>Hugo</generator><language>en</language><copyright>Huong Do</copyright><lastBuildDate>Sun, 20 Mar 2022 10:00:02 +0701</lastBuildDate><atom:link href="/tags/kaomoji/index.xml" rel="self" type="application/rss+xml"/><item><title>Releasing Peachy 🍑</title><link>/posts/peachy/</link><pubDate>Sun, 20 Mar 2022 10:00:02 +0701</pubDate><guid>/posts/peachy/</guid><description>&lt;p&gt;&lt;img src="/posts/peachy/demo.gif" alt="Peachy Demo"&gt;&lt;/p&gt;
+&lt;p&gt;I&amp;rsquo;m happy to announce that &lt;a href="https://itsmeichigo.io/peachy/"&gt;Peachy&lt;/a&gt; is finally out in the wild! 🎉&lt;/p&gt;
+&lt;p&gt;Peachy is a Mac app for entering Kaomojis easily. This was inspired by &lt;a href="https://matthewpalmer.net/rocket/"&gt;Rocket&lt;/a&gt; and suggested/encouraged/challenged by a friend. I took this as an opportunity to get my feet wet with Mac app development, and it was a wholesome experience with a lot of challenges:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Integration of SwiftUI and AppKit. SwiftUI is nice for creating simple views, but for complex customizations, AppKit is the solution. It was painful, but I did learn a lot.&lt;/li&gt;
+&lt;li&gt;Integration of the Accessibility API and learning AppleScript.&lt;/li&gt;
+&lt;li&gt;A lot of workarounds!&lt;/li&gt;
+&lt;li&gt;Since Accessibility API doesn&amp;rsquo;t work with Sandbox, the app cannot be shipped in the App Store. This came with another bunch of challenges:
+&lt;ul&gt;
+&lt;li&gt;Creating and notarizing the DMG for the app.&lt;/li&gt;
+&lt;li&gt;Hosting the app manually.&lt;/li&gt;
+&lt;li&gt;Building a landing page to introduce the app.&lt;/li&gt;
+&lt;li&gt;Managing app versions with &lt;a href="https://sparkle-project.org"&gt;Sparkle&lt;/a&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;More excitingly, Peachy is FREE and &lt;a href="https://github.com/itsmeichigo/peachy"&gt;opensource&lt;/a&gt;! If you like Peachy, please feel free to &lt;a href="https://www.buymeacoffee.com/itsmeichigo"&gt;buy me a cocktail&lt;/a&gt;. Cheers! 🍸&lt;/p&gt;</description></item></channel></rss>

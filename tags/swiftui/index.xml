@@ -1,41 +1,41 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Swiftui on Huong Do</title><link>/tags/swiftui/</link><description>Recent content in Swiftui on Huong Do</description><generator>Hugo</generator><language>en</language><copyright>Huong Do</copyright><lastBuildDate>Mon, 04 Jul 2022 12:23:02 +0700</lastBuildDate><atom:link href="/tags/swiftui/index.xml" rel="self" type="application/rss+xml"/><item><title>An Adventure with Swift Charts</title><link>/posts/swift-charts/</link><pubDate>Mon, 04 Jul 2022 12:23:02 +0700</pubDate><guid>/posts/swift-charts/</guid><description>&lt;p>&lt;em>This post was original posted on &lt;a href="https://mobile.blog/2022/07/04/an-adventure-with-swift-charts/">mobile.blog&lt;/a>.&lt;/em>&lt;/p>
-&lt;p>As you all may already know, one of the cool new things introduced in WWDC 2022 was &lt;a href="https://developer.apple.com/documentation/Charts">Swift Charts&lt;/a>, a framework to create charts with SwiftUI. To learn more about the Swift Charts&amp;rsquo; potential, let&amp;rsquo;s go on a thrilling adventure to replace the chart in &lt;a href="https://apps.apple.com/us/app/woocommerce/id1389130815">WooCommerce iOS&lt;/a> with this ✨✨ shiny new framework ✨✨.&lt;/p>
-&lt;p>To get started, here&amp;rsquo;s what the chart currently looks like in WooCommerce iOS. We&amp;rsquo;d want to build something similar using Swift Charts:&lt;/p></description></item><item><title>Working with observable objects in SwiftUI</title><link>/posts/swiftui-observable-objects/</link><pubDate>Sat, 11 Sep 2021 10:00:02 +0701</pubDate><guid>/posts/swiftui-observable-objects/</guid><description>&lt;p>Earlier this week I learned about &lt;code>@StateObject&lt;/code> &lt;a href="https://developer.apple.com/documentation/swiftui/stateobject/init%28wrappedvalue:%29">initializer&lt;/a> when reviewing a pull request. The idea was to create a view model for a SwiftUI view using some injected parameter and keep the view model as a &lt;code>@StateObject&lt;/code> so that the its state is persisted when the view is redrawn. The view creates the &lt;code>@StateObject&lt;/code> like so:&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-swift" data-lang="swift">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">class&lt;/span> &lt;span style="color:#a6e22e">ItemViewModel&lt;/span>: ObservableObject {
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> @Published &lt;span style="color:#66d9ef">var&lt;/span> itemName: String
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">init&lt;/span>(item: Item) {
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">self&lt;/span>.itemName = item.name
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> }
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">struct&lt;/span> &lt;span style="color:#a6e22e">ItemView&lt;/span>: View {
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> @StateObject &lt;span style="color:#66d9ef">private&lt;/span> &lt;span style="color:#66d9ef">var&lt;/span> viewModel: ItemViewModel
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">init&lt;/span>(item: Item) {
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> _viewModel = StateObject(wrappedValue: ItemViewModel(item: item))
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> }
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">var&lt;/span> body: some View {
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> TextField(&lt;span style="color:#e6db74">&amp;#34;Item Name&amp;#34;&lt;/span>, text: viewModel.&lt;span style="color:#960050;background-color:#1e0010">$&lt;/span>itemName)
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> }
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>The problem with this initializer is that it&amp;rsquo;s not meant to be used directly. As Apple documentation says it:&lt;/p></description></item><item><title>Releasing Fretboard 🎸</title><link>/posts/fretboard/</link><pubDate>Sat, 30 Jan 2021 10:00:02 +0701</pubDate><guid>/posts/fretboard/</guid><description>&lt;p>&lt;img src="/posts/fretboard/logo.png" alt="Fretboard Logo">&lt;/p>
-&lt;p>&lt;a href="https://github.com/itsmeichigo/Fretboard">Fretboard&lt;/a> is a weekend project to display guitar and ukulele chords using SwiftUI.&lt;/p>
-&lt;p>Features:&lt;/p>
-&lt;ul>
-&lt;li>🎵 Chord positions&lt;/li>
-&lt;li>🌗 Light / Dark modes&lt;/li>
-&lt;li>🎸 Guitar &amp;amp; ukulele chords with basic tunings&lt;/li>
-&lt;li>⏳ More to come.&lt;/li>
-&lt;/ul>
-&lt;h2 id="installation">Installation&lt;/h2>
-&lt;h4 id="swift-package-manager">Swift Package Manager&lt;/h4>
-&lt;p>Add &lt;a href="https://github.com/itsmeichigo/Fretboard.git">https://github.com/itsmeichigo/Fretboard.git&lt;/a> as the source and you&amp;rsquo;re good to go.&lt;/p>
-&lt;h4 id="manual-install">Manual install&lt;/h4>
-&lt;p>Copy contents from Sources folder to your project.&lt;/p>
-&lt;h2 id="usage">Usage&lt;/h2>
-&lt;p>Get your desired instruments:&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-Swift" data-lang="Swift">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">let&lt;/span> guitar = Instrument.guitar
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">let&lt;/span> ukulele = Instrument.ukulele
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>Each instrument comes with their own name, keys, suffixes and chords. Get a list of positions for a chord using key and suffix:&lt;/p></description></item><item><title>Learning SwiftUI by Building a Slack-like Emoji Picker</title><link>/posts/swiftui-happy-panel/</link><pubDate>Wed, 02 Sep 2020 21:23:02 +0701</pubDate><guid>/posts/swiftui-happy-panel/</guid><description>&lt;p>I started learning SwiftUI around August 2020 first with &lt;a href="https://developer.apple.com/tutorials/SwiftUI">Apple&amp;rsquo;s SwiftUI Tutorials&lt;/a>. The tutorials were really fun and got me excited with using SwiftUI. I then continued with Paul Hudson&amp;rsquo;s series &lt;a href="https://www.hackingwithswift.com/100/swiftui">100 Days of SwiftUI&lt;/a>. Around the end of series, I could not hesitate any longer so I started a new Xcode project and build one of the things I like most about Slack app: the emoji picker!&lt;/p>
-&lt;p>&lt;img src="https://github.com/itsmeichigo/HappyPanel/blob/master/screenshot.png?raw=true" alt="Happy Panel">&lt;/p>
-&lt;p>The point of the &lt;a href="https://github.com/itsmeichigo/HappyPanel">Happy Panel project&lt;/a> was to learn SwiftUI and make use of its declarative syntax to build a complicated control with gestures and animations in a few lines of code. Because the biggest motivation for me to learn something new is to be able to make something beautiful and performant.&lt;/p></description></item></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Swiftui on Huong Do</title><link>/tags/swiftui/</link><description>Recent content in Swiftui on Huong Do</description><generator>Hugo</generator><language>en</language><copyright>Huong Do</copyright><lastBuildDate>Mon, 04 Jul 2022 12:23:02 +0700</lastBuildDate><atom:link href="/tags/swiftui/index.xml" rel="self" type="application/rss+xml"/><item><title>An Adventure with Swift Charts</title><link>/posts/swift-charts/</link><pubDate>Mon, 04 Jul 2022 12:23:02 +0700</pubDate><guid>/posts/swift-charts/</guid><description>&lt;p&gt;&lt;em&gt;This post was original posted on &lt;a href="https://mobile.blog/2022/07/04/an-adventure-with-swift-charts/"&gt;mobile.blog&lt;/a&gt;.&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;As you all may already know, one of the cool new things introduced in WWDC 2022 was &lt;a href="https://developer.apple.com/documentation/Charts"&gt;Swift Charts&lt;/a&gt;, a framework to create charts with SwiftUI. To learn more about the Swift Charts&amp;rsquo; potential, let&amp;rsquo;s go on a thrilling adventure to replace the chart in &lt;a href="https://apps.apple.com/us/app/woocommerce/id1389130815"&gt;WooCommerce iOS&lt;/a&gt; with this ✨✨ shiny new framework ✨✨.&lt;/p&gt;
+&lt;p&gt;To get started, here&amp;rsquo;s what the chart currently looks like in WooCommerce iOS. We&amp;rsquo;d want to build something similar using Swift Charts:&lt;/p&gt;</description></item><item><title>Working with observable objects in SwiftUI</title><link>/posts/swiftui-observable-objects/</link><pubDate>Sat, 11 Sep 2021 10:00:02 +0701</pubDate><guid>/posts/swiftui-observable-objects/</guid><description>&lt;p&gt;Earlier this week I learned about &lt;code&gt;@StateObject&lt;/code&gt; &lt;a href="https://developer.apple.com/documentation/swiftui/stateobject/init%28wrappedvalue:%29"&gt;initializer&lt;/a&gt; when reviewing a pull request. The idea was to create a view model for a SwiftUI view using some injected parameter and keep the view model as a &lt;code&gt;@StateObject&lt;/code&gt; so that the its state is persisted when the view is redrawn. The view creates the &lt;code&gt;@StateObject&lt;/code&gt; like so:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"&gt;&lt;code class="language-swift" data-lang="swift"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#66d9ef"&gt;class&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;ItemViewModel&lt;/span&gt;: ObservableObject {
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; @Published &lt;span style="color:#66d9ef"&gt;var&lt;/span&gt; itemName: String
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;init&lt;/span&gt;(item: Item) {
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;self&lt;/span&gt;.itemName = item.name
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; }
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#66d9ef"&gt;struct&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;ItemView&lt;/span&gt;: View {
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; @StateObject &lt;span style="color:#66d9ef"&gt;private&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;var&lt;/span&gt; viewModel: ItemViewModel
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;init&lt;/span&gt;(item: Item) {
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; _viewModel = StateObject(wrappedValue: ItemViewModel(item: item))
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; }
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;var&lt;/span&gt; body: some View {
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; TextField(&lt;span style="color:#e6db74"&gt;&amp;#34;Item Name&amp;#34;&lt;/span&gt;, text: viewModel.&lt;span style="color:#960050;background-color:#1e0010"&gt;$&lt;/span&gt;itemName)
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; }
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;The problem with this initializer is that it&amp;rsquo;s not meant to be used directly. As Apple documentation says it:&lt;/p&gt;</description></item><item><title>Releasing Fretboard 🎸</title><link>/posts/fretboard/</link><pubDate>Sat, 30 Jan 2021 10:00:02 +0701</pubDate><guid>/posts/fretboard/</guid><description>&lt;p&gt;&lt;img src="/posts/fretboard/logo.png" alt="Fretboard Logo"&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href="https://github.com/itsmeichigo/Fretboard"&gt;Fretboard&lt;/a&gt; is a weekend project to display guitar and ukulele chords using SwiftUI.&lt;/p&gt;
+&lt;p&gt;Features:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;🎵 Chord positions&lt;/li&gt;
+&lt;li&gt;🌗 Light / Dark modes&lt;/li&gt;
+&lt;li&gt;🎸 Guitar &amp;amp; ukulele chords with basic tunings&lt;/li&gt;
+&lt;li&gt;⏳ More to come.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id="installation"&gt;Installation&lt;/h2&gt;
+&lt;h4 id="swift-package-manager"&gt;Swift Package Manager&lt;/h4&gt;
+&lt;p&gt;Add &lt;a href="https://github.com/itsmeichigo/Fretboard.git"&gt;https://github.com/itsmeichigo/Fretboard.git&lt;/a&gt; as the source and you&amp;rsquo;re good to go.&lt;/p&gt;
+&lt;h4 id="manual-install"&gt;Manual install&lt;/h4&gt;
+&lt;p&gt;Copy contents from Sources folder to your project.&lt;/p&gt;
+&lt;h2 id="usage"&gt;Usage&lt;/h2&gt;
+&lt;p&gt;Get your desired instruments:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"&gt;&lt;code class="language-Swift" data-lang="Swift"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#66d9ef"&gt;let&lt;/span&gt; guitar = Instrument.guitar
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#66d9ef"&gt;let&lt;/span&gt; ukulele = Instrument.ukulele
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Each instrument comes with their own name, keys, suffixes and chords. Get a list of positions for a chord using key and suffix:&lt;/p&gt;</description></item><item><title>Learning SwiftUI by Building a Slack-like Emoji Picker</title><link>/posts/swiftui-happy-panel/</link><pubDate>Wed, 02 Sep 2020 21:23:02 +0701</pubDate><guid>/posts/swiftui-happy-panel/</guid><description>&lt;p&gt;I started learning SwiftUI around August 2020 first with &lt;a href="https://developer.apple.com/tutorials/SwiftUI"&gt;Apple&amp;rsquo;s SwiftUI Tutorials&lt;/a&gt;. The tutorials were really fun and got me excited with using SwiftUI. I then continued with Paul Hudson&amp;rsquo;s series &lt;a href="https://www.hackingwithswift.com/100/swiftui"&gt;100 Days of SwiftUI&lt;/a&gt;. Around the end of series, I could not hesitate any longer so I started a new Xcode project and build one of the things I like most about Slack app: the emoji picker!&lt;/p&gt;
+&lt;p&gt;&lt;img src="https://github.com/itsmeichigo/HappyPanel/blob/master/screenshot.png?raw=true" alt="Happy Panel"&gt;&lt;/p&gt;
+&lt;p&gt;The point of the &lt;a href="https://github.com/itsmeichigo/HappyPanel"&gt;Happy Panel project&lt;/a&gt; was to learn SwiftUI and make use of its declarative syntax to build a complicated control with gestures and animations in a few lines of code. Because the biggest motivation for me to learn something new is to be able to make something beautiful and performant.&lt;/p&gt;</description></item></channel></rss>
