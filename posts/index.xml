@@ -390,7 +390,8 @@
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><p>The problem with this initializer is that it&rsquo;s not meant to be used directly. As Apple documentation says it:</p>
 <blockquote>
-<p>You don’t call this initializer directly. Instead, declare a property with the <code>@StateObject</code> attribute in a <a href="https://developer.apple.com/documentation/swiftui/view"><code>View</code></a>, <a href="https://developer.apple.com/documentation/swiftui/app"><code>App</code></a>, or <a href="https://developer.apple.com/documentation/swiftui/scene"><code>Scene</code></a>, and provide an initial value</p></blockquote>
+<p>You don’t call this initializer directly. Instead, declare a property with the <code>@StateObject</code> attribute in a <a href="https://developer.apple.com/documentation/swiftui/view"><code>View</code></a>, <a href="https://developer.apple.com/documentation/swiftui/app"><code>App</code></a>, or <a href="https://developer.apple.com/documentation/swiftui/scene"><code>Scene</code></a>, and provide an initial value</p>
+</blockquote>
 <p>More interestingly, <a href="https://swiftui-lab.com/random-lessons/#data-10">an answer</a> on the WWDC21&rsquo;s SwiftUI Lab confirms that this is an acceptable use. I&rsquo;m not quite happy with this answer though, because it&rsquo;s not cool to go against the recommended use. So we can fix this by injecting the view model from outside, right?</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-swift" data-lang="swift"><span style="display:flex;"><span><span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">ItemView</span>: View {
 </span></span><span style="display:flex;"><span>    @StateObject <span style="color:#66d9ef">var</span> viewModel: ItemViewModel
@@ -535,7 +536,8 @@
 <h2 id="publishers--subscribers">Publishers &amp; Subscribers</h2>
 <p>These two are the equivalents of Observables and Observers in RxSwift. Together they make up the core components of Combine. As Apple put it:</p>
 <blockquote>
-<p>Combine declares publishers to expose values that can change over time, and subscribers to receive those values from the publishers.</p></blockquote>
+<p>Combine declares publishers to expose values that can change over time, and subscribers to receive those values from the publishers.</p>
+</blockquote>
 <p>The great thing about using the native FRP framework is that it has been integrated into other Apple’s frameworks, making the migration process easier. Foundation framework has supported the use of Combine in some of its APIs, like <code>URLSession</code> in the following example:</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-swift" data-lang="swift"><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">RepoListViewModel</span> {
 </span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">var</span> cancellable: AnyCancellable?
