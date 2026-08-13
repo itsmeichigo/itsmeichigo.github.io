@@ -227,7 +227,7 @@
     <div class="container">
         <div class="row mt-5">
             <div class="col-12 text-muted text-center small-xl">
-                &copy; 2025 <a href="https://itsmeichigo.io">Huong Do</a> - All Rights Reserved
+                &copy; <span id="copyright-year"></span> <a href="https://itsmeichigo.io">Huong Do</a> - All Rights Reserved
             </div>
         </div>
     </div>
@@ -240,5 +240,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.7.3/feather.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
 <script src="js/scripts.js"></script>
+<script>
+    document.getElementById('copyright-year').textContent = new Date().getFullYear();
+</script>
 </body>
 </html>
