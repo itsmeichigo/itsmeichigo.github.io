@@ -1,5 +1,17 @@
 [
     {
+        "name": "Last Light",
+        "url": "https://itsmeichigo.itch.io/last-light",
+        "thumbnail": "https://itsmeichigo.io/img/apps/lastlight.png",
+        "description": "Tiny space puzzle game made with Pico-8",
+        "tags": [
+            "game",
+            "space",
+            "puzzle",
+            "pico-8"
+        ]
+    },
+    {
         "name": "Peachy",
         "url": "https://itsmeichigo.io/peachy",
         "thumbnail": "https://itsmeichigo.io/img/apps/peachy.png",
